@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mijn Onderwijsspelletjes</title>
+</head>
+<body>
+<h1>Mijn Onderwijsspelletjes</h1>
+
+<ul>
+  <li><a href="Spookwoordenboek Taaljacht Blok 1 groep 4.html">Spookwoordenboek Taaljacht Blok 1 groep 4</a></li>
+  <li><a href="Spookwoordenboek Taaljacht Blok 8 groep 4.html">Spookwoordenboek Taaljacht Blok 8 groep 4</a></li>
+  <li><a href="story-cubes.html">story-cubes</a></li>
+</ul>
+
+</body>
+</html>

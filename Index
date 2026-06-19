@@ -1,27 +1,11 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Onderwijsspelletjes</title>
-<style>
-body{
-    font-family: Arial, sans-serif;
-    max-width:800px;
-    margin:auto;
-    padding:20px;
-}
-a{
-    display:block;
-    background:#e8f4ff;
-    padding:15px;
-    margin:10px 0;
-    text-decoration:none;
-    border-radius:8px;
-}
-</style>
+<title>Mijn Onderwijsspelletjes</title>
 </head>
 <body>
-<h1>Mijn onderwijsspelletjes</h1>
+<h1>Mijn Onderwijsspelletjes</h1>
 
 <ul>
   <li><a href="Spookwoordenboek Taaljacht Blok 1 groep 4.html">Spookwoordenboek Taaljacht Blok 1 groep 4</a></li>

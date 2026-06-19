@@ -1,0 +1,349 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+body{font-family:var(--font-sans);}
+#app{padding:1rem 0;}
+.screen{display:none;}
+.screen.active{display:block;}
+.btn{cursor:pointer;border:0.5px solid var(--color-border-secondary);background:transparent;border-radius:var(--border-radius-md);padding:10px 20px;font-size:15px;color:var(--color-text-primary);font-family:var(--font-sans);transition:background 0.15s;}
+.btn:hover{background:var(--color-background-secondary);}
+.btn:active{transform:scale(0.98);}
+.btn-primary{background:#534AB7;border-color:#3C3489;color:#EEEDFE;}
+.btn-primary:hover{background:#3C3489;}
+.btn-wide{width:100%;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;}
+.ghost-card{background:#EEEDFE;border:0.5px solid #AFA9EC;border-radius:var(--border-radius-lg);padding:1.25rem;position:relative;}
+.word-badge{display:inline-block;background:#534AB7;color:#EEEDFE;font-size:13px;padding:3px 10px;border-radius:var(--border-radius-md);margin:3px;}
+.word-badge.freed{background:#1D9E75;color:#E1F5EE;}
+.word-badge.ghost{background:#AFA9EC;color:#26215C;}
+.progress-bar{height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;margin-bottom:1rem;}
+.progress-fill{height:100%;background:#534AB7;border-radius:3px;transition:width 0.4s;}
+.feedback{text-align:center;padding:0.75rem 1rem;border-radius:var(--border-radius-lg);font-size:16px;font-weight:500;margin-bottom:0.75rem;}
+.feedback.correct{background:#E1F5EE;color:#085041;}
+.feedback.wrong{background:#FCEBEB;color:#A32D2D;}
+.feedback.hint{background:#EEEDFE;color:#3C3489;}
+.hint-letter{display:inline-block;min-width:18px;text-align:center;font-size:20px;font-weight:500;border-bottom:2px solid #534AB7;margin:0 2px;color:var(--color-text-primary);}
+.ghost-icon{font-size:48px;text-align:center;padding:0.5rem 0;}
+.score-big{font-size:48px;font-weight:500;text-align:center;color:#534AB7;padding:0.5rem 0;}
+.freed-list{display:flex;flex-wrap:wrap;gap:4px;padding:0.75rem 0;}
+input[type=text]#def-input{width:100%;font-size:18px;padding:10px;text-align:center;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-primary);margin-bottom:10px;}
+input[type=text]#def-input:focus{outline:none;box-shadow:0 0 0 2px #534AB7;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1rem 0;}
+.stat-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;}
+.stat-val{font-size:22px;font-weight:500;}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+.mode-btn{cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem;text-align:center;font-family:var(--font-sans);}
+.mode-btn:hover{border-color:var(--color-border-primary);}
+.mode-btn.selected{border:2px solid #534AB7;background:#EEEDFE;}
+.mode-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-top:6px;}
+.mode-desc{font-size:12px;color:var(--color-text-secondary);margin-top:3px;}
+</style>
+
+<h2 class="sr-only">Het spookwoordenboek — raad de definitie en bevrijd woorden uit het spookboek</h2>
+<div id="app">
+
+<div id="start" class="screen active">
+  <div style="text-align:center;padding:1.5rem 0 1rem;">
+    <div style="font-size:52px;margin-bottom:8px;">👻</div>
+    <h1 style="font-size:22px;font-weight:500;margin-bottom:6px;">Het spookwoordenboek</h1>
+    <p style="font-size:15px;color:var(--color-text-secondary);">Woorden zijn gevangen door een spook! Raad de betekenis en bevrijd ze.</p>
+  </div>
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px;">Kies een modus</p>
+  <div class="mode-grid" id="mode-grid">
+    <button class="mode-btn selected" data-mode="def">
+      <div style="font-size:26px;">📖</div>
+      <div class="mode-title">Definitie raden</div>
+      <div class="mode-desc">Lees de definitie, typ het woord</div>
+    </button>
+    <button class="mode-btn" data-mode="word">
+      <div style="font-size:26px;">🔍</div>
+      <div class="mode-title">Woord beschrijven</div>
+      <div class="mode-desc">Zie het woord, kies de goede betekenis</div>
+    </button>
+  </div>
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px;">Kies een thema</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1.5rem;" id="theme-grid"></div>
+  <button class="btn btn-primary btn-wide" id="start-btn" style="font-size:16px;padding:14px;">Bevrijd de woorden! 👻</button>
+</div>
+
+<div id="game" class="screen">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <span id="q-num" style="font-size:13px;color:var(--color-text-secondary);"></span>
+    <span id="score-live" style="font-size:13px;font-weight:500;color:#534AB7;"></span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="ghost-card" style="margin-bottom:1rem;">
+    <div id="ghost-icon" class="ghost-icon">👻</div>
+    <p id="game-prompt" style="font-size:14px;color:#3C3489;text-align:center;margin-bottom:0.75rem;font-weight:500;"></p>
+    <div id="game-content" style="text-align:center;"></div>
+  </div>
+
+  <div id="input-area"></div>
+  <div id="feedback-area"></div>
+  <button class="btn" id="hint-btn" style="font-size:13px;margin-bottom:8px;color:#534AB7;border-color:#AFA9EC;">💡 Geef een hint</button>
+  <button class="btn btn-primary btn-wide" id="check-btn">Controleer ✓</button>
+  <button class="btn btn-wide" id="next-btn" style="display:none;margin-top:8px;">Volgende woord →</button>
+
+  <div style="margin-top:1rem;">
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:6px;">Bevrijde woorden:</p>
+    <div id="freed-words" class="freed-list"></div>
+  </div>
+</div>
+
+<div id="result" class="screen">
+  <div style="text-align:center;padding:1rem 0;">
+    <div id="result-emoji" style="font-size:52px;margin-bottom:8px;"></div>
+    <h2 style="font-size:18px;font-weight:500;" id="result-title"></h2>
+    <p style="font-size:14px;color:var(--color-text-secondary);margin-top:4px;" id="result-sub"></p>
+  </div>
+  <div class="score-big" id="final-score"></div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-label">Bevrijd</div><div class="stat-val" id="stat-freed" style="color:#1D9E75;"></div></div>
+    <div class="stat-card"><div class="stat-label">Hints gebruikt</div><div class="stat-val" id="stat-hints" style="color:#534AB7;"></div></div>
+    <div class="stat-card"><div class="stat-label">Nog gevangen</div><div class="stat-val" id="stat-trapped" style="color:#A32D2D;"></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px;">Alle woorden:</p>
+  <div id="result-words" class="freed-list" style="margin-bottom:1rem;"></div>
+  <div style="display:flex;gap:8px;">
+    <button class="btn btn-primary" style="flex:1;" id="retry-btn">Opnieuw 🔄</button>
+    <button class="btn" style="flex:1;" id="home-btn">Menu 🏠</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const themes = [
+  {
+    id:"Taaljacht groep 4 Blok 1 les 1", name:"Groep 4 Blok 1 les 1", icon:"👻",
+    words:[
+    {w:"vervolgens", def:"daarna"},
+    {w:"zich herinneren", def:"iets nog weten"},
+    {w:"opgroeien", def:"groot worden"},
+    {w:"de peuter", def:"een kind van ongeveer 2 tot 4 jaar"},
+    {w:"zinloos", def:"je hebt er niets aan"},
+    {w:"brabbelen", def:"geluidjes maken die op praten lijken"},
+    {w:"in het wilde weg", def:"zomaar wat doen"},
+    {w:"kraaien van plezier", def:"geluidjes maken van plezier"},
+    {w:"het interview", def:"een vraaggesprek"},
+    {w:"niet weten wat je hoort", def:"bijna niet geloven"},
+    ]
+  },
+  {
+    id:"Taaljacht groep 4 Blok 1 les 2", name:"Taaljacht groep 4 Blok 1 les 2", icon:"👻",
+    words:[
+      {w:"de klinkers", def:"letters zoals a, e, i, o en u"},
+      {w:"de medeklinkers", def:"letters zoals m, b en p"},
+      {w:"het steekwoord", def:"een woord dat helpt een verhaal te onthouden"},
+      {w:"zodra", def:"vanaf het moment dat"},
+      {w:"beschadigen", def:"iets bekrassen of een deuk geven"},
+      {w:"herstellen", def:"iets maken wat kapot is"},
+      {w:"mondeling", def:"iets vertellen door te praten"},
+      {w:"schriftelijk", def:"iets vertellen door het op te schrijven"},
+      {w:"geen idee hebben", def:"het echt niet weten"},
+      {w:"de ik-figuur", def:"de 'ik' waar het verhaal over gaat"},
+    ]
+  },
+  {
+    id:"Taaljacht groep 4 Blok 1 les 3", name:"Taaljacht groep 4 Blok 1 les 3", icon:"👻",
+    words:[
+      {w:"evengoed", def:"toch wel"},
+      {w:"verlopen", def:"hoe iets gaat"},
+      {w:"vermelden", def:"vertellen"},
+      {w:"het verslag", def:"vertellen wat er is gebeurd of gedaan"},
+      {w:"zweten", def:"een natte huid krijgen als het warm is"},
+      {w:"de gesp", def:"onderdeel waarmee je een riem dichtmaakt"},
+      {w:"moet ik toch weten", def:"dat maak ik zelf wel uit"},
+      {w:"vernikkelen", def:"stijf worden van de kou"}
+    ]
+  },
+ 
+];
+
+let state={mode:"def",theme:null,words:[],current:0,score:0,freed:[],hints:0,answered:false,hintCount:0};
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function buildStart(){
+  const tg=document.getElementById('theme-grid');
+  tg.innerHTML='';
+  themes.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='mode-btn';
+    b.dataset.id=t.id;
+    b.innerHTML=`<div style="font-size:24px;">${t.icon}</div><div class="mode-title">${t.name}</div>`;
+    b.onclick=()=>{
+      document.querySelectorAll('#theme-grid .mode-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      state.theme=t.id;
+    };
+    tg.appendChild(b);
+  });
+  document.querySelectorAll('#mode-grid .mode-btn').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('#mode-grid .mode-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      state.mode=b.dataset.mode;
+    };
+  });
+  document.getElementById('start-btn').onclick=startGame;
+}
+
+function startGame(){
+  if(!state.theme){alert('Kies een thema!');return;}
+  const t=themes.find(x=>x.id===state.theme);
+  state.words=shuffle(t.words);
+  state.current=0;state.score=0;state.freed=[];state.hints=0;
+  updateFreed();
+  showQuestion();
+  show('game');
+}
+
+function showQuestion(){
+  const item=state.words[state.current];
+  state.answered=false;state.hintCount=0;
+  document.getElementById('q-num').textContent=`Woord ${state.current+1} van ${state.words.length}`;
+  document.getElementById('score-live').textContent=`Score: ${state.score}`;
+  document.getElementById('progress').style.width=`${(state.current/state.words.length)*100}%`;
+  document.getElementById('feedback-area').innerHTML='';
+  document.getElementById('check-btn').style.display='block';
+  document.getElementById('next-btn').style.display='none';
+  document.getElementById('hint-btn').textContent='💡 Geef een hint';
+  document.getElementById('hint-btn').disabled=false;
+
+  if(state.mode==='def'){
+    document.getElementById('game-prompt').textContent='Welk woord hoort bij deze betekenis?';
+    document.getElementById('game-content').innerHTML=`<p style="font-size:16px;color:#26215C;line-height:1.6;padding:0.5rem 0;">"${item.def}"</p>`;
+    document.getElementById('input-area').innerHTML=`<input type="text" id="def-input" placeholder="Typ het woord..." autocomplete="off" autocorrect="off" spellcheck="false"/>`;
+    const inp=document.getElementById('def-input');
+    inp.focus();
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter'){if(!state.answered)checkDef();else nextQ();}});
+  } else {
+    document.getElementById('game-prompt').textContent='Wat betekent dit woord?';
+    document.getElementById('game-content').innerHTML=`<div style="font-size:28px;font-weight:500;color:#26215C;padding:0.5rem 0;">${item.w}</div>`;
+    const correct=item.def;
+    const others=shuffle(state.words.filter((_,i)=>i!==state.current)).slice(0,3).map(x=>x.def);
+    const options=shuffle([correct,...others]);
+    let html='<div style="display:grid;gap:8px;margin-bottom:0.75rem;">';
+    options.forEach((o,i)=>{
+      html+=`<button class="btn" onclick="checkOption(this,'${o.replace(/'/g,"\\'")}','${correct.replace(/'/g,"\\'")}');return false;" style="text-align:left;font-size:14px;padding:10px 14px;">${String.fromCharCode(65+i)}. ${o}</button>`;
+    });
+    html+='</div>';
+    document.getElementById('input-area').innerHTML=html;
+    document.getElementById('check-btn').style.display='none';
+  }
+}
+
+function checkOption(btn,chosen,correct){
+  if(state.answered)return;
+  state.answered=true;
+  document.querySelectorAll('#input-area .btn').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('feedback-area');
+  if(chosen===correct){
+    state.score+=state.hintCount>0?1:2;
+    state.freed.push(state.words[state.current].w);
+    btn.style.background='#E1F5EE';btn.style.borderColor='#1D9E75';btn.style.color='#085041';
+    fb.innerHTML='<div class="feedback correct">✅ Juist! Het woord is bevrijd! 🎉</div>';
+  } else {
+    document.querySelectorAll('#input-area .btn').forEach(b=>{if(b.textContent.includes(correct.slice(0,20))){b.style.background='#E1F5EE';b.style.borderColor='#1D9E75';b.style.color='#085041';}});
+    btn.style.background='#FCEBEB';btn.style.borderColor='#E24B4A';btn.style.color='#791F1F';
+    fb.innerHTML=`<div class="feedback wrong">❌ Helaas! Het juiste antwoord was de groene optie.</div>`;
+  }
+  updateFreed();
+  document.getElementById('next-btn').style.display='block';
+}
+
+function checkDef(){
+  if(state.answered)return;
+  const inp=document.getElementById('def-input');
+  const given=(inp.value||'').trim().toLowerCase();
+  const correct=state.words[state.current].w.toLowerCase();
+  state.answered=true;
+  inp.disabled=true;
+  const fb=document.getElementById('feedback-area');
+  if(given===correct){
+    state.score+=state.hintCount>0?1:2;
+    state.freed.push(state.words[state.current].w);
+    fb.innerHTML='<div class="feedback correct">✅ Geweldig! Het woord is bevrijd! 🎉</div>';
+  } else {
+    fb.innerHTML=`<div class="feedback wrong">❌ Niet helemaal. Het goede woord was: <strong>${correct}</strong></div>`;
+  }
+  updateFreed();
+  document.getElementById('check-btn').style.display='none';
+  document.getElementById('next-btn').style.display='block';
+}
+
+function giveHint(){
+  if(state.answered)return;
+  const item=state.words[state.current];
+  state.hintCount++;
+  state.hints++;
+  if(state.mode==='def'){
+    const w=item.w;
+    const revealed=Math.ceil(w.length/3*state.hintCount);
+    let html='';
+    for(let i=0;i<w.length;i++){
+      html+=`<span class="hint-letter">${i<revealed?w[i]:'_'}</span>`;
+    }
+    document.getElementById('feedback-area').innerHTML=`<div class="feedback hint">💜 Hint: ${html}</div>`;
+    if(state.hintCount>=3){document.getElementById('hint-btn').disabled=true;document.getElementById('hint-btn').textContent='Geen hints meer';}
+  } else {
+    document.getElementById('feedback-area').innerHTML=`<div class="feedback hint">💜 Hint: Het woord heeft ${item.w.length} letters en begint met "<strong>${item.w[0].toUpperCase()}</strong>"</div>`;
+    document.getElementById('hint-btn').disabled=true;
+    document.getElementById('hint-btn').textContent='Geen hints meer';
+  }
+}
+
+function updateFreed(){
+  const el=document.getElementById('freed-words');
+  if(!el)return;
+  el.innerHTML=state.words.slice(0,state.current+1).map(w=>{
+    const isFreed=state.freed.includes(w.w);
+    return `<span class="word-badge ${isFreed?'freed':'ghost'}">${isFreed?'✓ '+w.w:'👻 ???'}</span>`;
+  }).join('');
+}
+
+function nextQ(){
+  state.current++;
+  if(state.current>=state.words.length)showResult();
+  else showQuestion();
+}
+
+function showResult(){
+  show('result');
+  const total=state.words.length;
+  const freed=state.freed.length;
+  const pct=Math.round((freed/total)*100);
+  let emoji,title,sub;
+  if(pct===100){emoji='🏆';title='Alle woorden bevrijd!';sub='Jij bent een woordenboek-held!';}
+  else if(pct>=75){emoji='🌟';title='Fantastisch!';sub='Bijna alle woorden zijn vrij!';}
+  else if(pct>=50){emoji='👻';title='Goed gedaan!';sub='De helft is al bevrijd!';}
+  else{emoji='💪';title='Blijf oefenen!';sub='De woorden hebben jou nog nodig!';}
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-sub').textContent=sub;
+  document.getElementById('final-score').textContent=`${state.score} punten`;
+  document.getElementById('stat-freed').textContent=freed;
+  document.getElementById('stat-hints').textContent=state.hints;
+  document.getElementById('stat-trapped').textContent=total-freed;
+  const rw=document.getElementById('result-words');
+  rw.innerHTML=state.words.map(w=>`<span class="word-badge ${state.freed.includes(w.w)?'freed':'ghost'}">${state.freed.includes(w.w)?'✓ '+w.w:'👻 '+w.w}</span>`).join('');
+  document.getElementById('progress').style.width='100%';
+}
+
+document.getElementById('check-btn').onclick=checkDef;
+document.getElementById('next-btn').onclick=nextQ;
+document.getElementById('hint-btn').onclick=giveHint;
+document.getElementById('retry-btn').onclick=()=>{
+  state.current=0;state.score=0;state.freed=[];state.hints=0;
+  state.words=shuffle(state.words);
+  updateFreed();showQuestion();show('game');
+};
+document.getElementById('home-btn').onclick=()=>show('start');
+
+buildStart();
+</script>

@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-<meta charset="UTF-8">
-<title>Mijn Onderwijsspelletjes</title>
+  <meta charset="UTF-8">
+  <title>Zien is Snappen – Zinnen bouwen</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Mijn Onderwijsspelletjes</h1>
 
-<ul>
-  <li><a href="Spookwoordenboek Taaljacht Blok 1 groep 4.html">Spookwoordenboek Taaljacht Blok 1 groep 4</a></li>
-  <li><a href="Spookwoordenboek Taaljacht Blok 8 groep 4.html">Spookwoordenboek Taaljacht Blok 8 groep 4</a></li>
-  <li><a href="story-cubes.html">story-cubes</a></li>
-</ul>
+<div class="spel">
 
+  <h1>🧩 Bouw de zin!</h1>
+
+  <div class="bovenbalk">
+    <span id="voortgang">Zin 1 van 10</span>
+    <span id="score">⭐ Score: 0</span>
+  </div>
+
+  <p class="uitleg">
+    Klik een woord → het gaat naar het juiste vak.<br>
+    Klik ✕ in een vak om een woord te wissen.
+  </p>
+
+  <!-- Vakken worden door JavaScript ingevuld per zin -->
+  <div class="velden" id="velden"></div>
+
+  <h2>Woorden</h2>
+  <div id="woorden"></div>
+
+  <div class="knoppen">
+    <button onclick="controleer()">✅ Controleer zin</button>
+    <button id="btn-volgende" onclick="volgende()" style="display:none; background:#3498db;">
+      ➡️ Volgende zin
+    </button>
+  </div>
+
+  <div id="resultaat"></div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breinbreak — Bewegingstussendoortje</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f4ef;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a18;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 15px;
+      color: #6b6b67;
+      margin-top: 6px;
+    }
+
+    .wheel-wrap {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 1.75rem;
+    }
+
+    canvas#wheel {
+      display: block;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));
+    }
+
+    .pointer {
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-right: 32px solid #E24B4A;
+      filter: drop-shadow(0 2px 4px rgba(226,75,74,0.4));
+    }
+
+    .spin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 40px;
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: #1a1a18;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      margin-bottom: 1.75rem;
+    }
+
+    .spin-btn:hover { background: #333330; box-shadow: 0 6px 18px rgba(0,0,0,0.22); }
+    .spin-btn:active { transform: scale(0.97); }
+    .spin-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .spin-icon {
+      display: inline-block;
+      font-style: normal;
+      font-size: 20px;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1.5px solid #e8e7e2;
+      border-radius: 20px;
+      padding: 2rem 1.5rem 1.75rem;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.25s, border-color 0.25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .result-card.hidden { opacity: 0; pointer-events: none; min-height: 60px; }
+
+    .result-emoji { font-size: 52px; line-height: 1; }
+
+    .result-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a18;
+    }
+
+    .result-desc {
+      font-size: 14px;
+      color: #6b6b67;
+      line-height: 1.6;
+      max-width: 360px;
+    }
+
+    .timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid #eee;
+      width: 100%;
+    }
+
+    .timer-display {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1a1a18;
+      min-width: 70px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-btn {
+      padding: 8px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1.5px solid #d0cfc9;
+      border-radius: 50px;
+      background: transparent;
+      color: #1a1a18;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .timer-btn:hover { background: #f0efe9; }
+
+    .timer-btn.active {
+      background: #eaf3de;
+      border-color: #7ab84a;
+      color: #3B6D11;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 12px;
+      color: #aaa9a4;
+    }
+
+    @media (max-width: 400px) {
+      .wheel-wrap { width: 260px; height: 260px; }
+      canvas#wheel { width: 260px; height: 260px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🧠 Breinbreak</h1>
+    <p>Draai het wiel en doe de oefening — goed voor je brein!</p>
+  </header>
+
+  <div class="wheel-wrap">
+    <canvas id="wheel" width="600" height="600"></canvas>
+    <div class="pointer"></div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn" onclick="spin()">
+    <span class="spin-icon" id="spinIcon">↻</span>
+    Draaien!
+  </button>
+
+  <div class="result-card hidden" id="resultCard">
+    <div class="result-emoji" id="resultEmoji"></div>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <div class="timer-row">
+      <div class="timer-display" id="timerDisplay">0:30</div>
+      <button class="timer-btn" id="timerBtn" onclick="toggleTimer()">Start</button>
+    </div>
+  </div>
+
+  <footer>Breinbreak &mdash; bewegingstussendoortje voor online les</footer>
+</div>
+
+<script>
+const oefeningen = [
+  {
+    naam: "Jumping jacks",
+    emoji: "⭐",
+    beschrijving: "Sta recht, spring en spreid je armen en benen tegelijk. Doe dit 30 seconden lang zo snel als je kunt!",
+    kleurLicht: "#FAC775",
+    kleurDonker: "#BA7517",
+    seconden: 30
+  },
+  {
+    naam: "Yoga: boom",
+    emoji: "🌳",
+    beschrijving: "Sta op één been, zet je voet tegen je kuit of dij. Handen omhoog als takken. 15 seconden per kant.",
+    kleurLicht: "#9FE1CB",
+    kleurDonker: "#0F6E56",
+    seconden: 30
+  },
+  {
+    naam: "Schouderrollen",
+    emoji: "🔄",
+    beschrijving: "Rol je schouders 10 keer rustig naar achter, dan 10 keer naar voren. Heerlijk voor nekspanning!",
+    kleurLicht: "#CECBF6",
+    kleurDonker: "#534AB7",
+    seconden: 20
+  },
+  {
+    naam: "Ster-springen",
+    emoji: "💥",
+    beschrijving: "Spring omhoog met armen en benen wijd uitgespreid als een ster. Herhaal 10 keer!",
+    kleurLicht: "#F5C4B3",
+    kleurDonker: "#993C1D",
+    seconden: 25
+  },
+  {
+    naam: "Yoga: hond",
+    emoji: "🐕",
+    beschrijving: "Handen en voeten op de grond, heupen omhoog naar het plafond. Neerwaartse hond — houd 30 seconden vast.",
+    kleurLicht: "#C0DD97",
+    kleurDonker: "#3B6D11",
+    seconden: 30
+  },
+  {
+    naam: "Nekstrekking",
+    emoji: "😌",
+    beschrijving: "Kantel je hoofd langzaam naar links, dan rechts. Neus recht naar voren houden. 15 seconden per kant.",
+    kleurLicht: "#B5D4F4",
+    kleurDonker: "#185FA5",
+    seconden: 30
+  },
+  {
+    naam: "Huppelen",
+    emoji: "🏃",
+    beschrijving: "Loop snel op de plek met je knieën hoog omhoog — hup hup hup! 30 seconden lang vol houden.",
+    kleurLicht: "#F4C0D1",
+    kleurDonker: "#993556",
+    seconden: 30
+  },
+  {
+    naam: "Yoga: krijger",
+    emoji: "⚔️",
+    beschrijving: "Grote stap naar voren, voorste knie gebogen, armen recht omhoog. Sterk als een krijger! 20 sec per kant.",
+    kleurLicht: "#FAC775",
+    kleurDonker: "#633806",
+    seconden: 40
+  }
+];
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+const N = oefeningen.length;
+const arcSize = (2 * Math.PI) / N;
+let currentAngle = 0;
+let spinning = false;
+let timerInterval = null;
+let timerSec = 30;
+let timerRunning = false;
+let timerTotal = 30;
+
+function drawWheel(angle) {
+  const cx = 300, cy = 300, r = 280, innerR = 62;
+  ctx.clearRect(0, 0, 600, 600);
+
+  oefeningen.forEach((o, i) => {
+    const start = angle + i * arcSize;
+    const end = start + arcSize;
+
+    // Slice fill
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, end);
+    ctx.closePath();
+    ctx.fillStyle = o.kleurLicht;
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Emoji and label
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + arcSize / 2);
+
+    // Emoji
+    ctx.font = "28px serif";
+    ctx.textAlign = "right";
+    ctx.fillText(o.emoji, r - 16, 10);
+
+    // Label (split into words if needed)
+    ctx.font = "bold 19px -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = o.kleurDonker;
+    ctx.textAlign = "right";
+    const words = o.naam.split(" ");
+    if (words.length <= 2) {
+      ctx.fillText(words[0], r - 58, -4);
+      if (words[1]) ctx.fillText(words[1], r - 58, 17);
+    } else {
+      ctx.fillText(words[0] + " " + words[1], r - 58, -4);
+      ctx.fillText(words.slice(2).join(" "), r - 58, 17);
+    }
+
+    ctx.restore();
+  });
+
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR, 0, 2 * Math.PI);
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+  ctx.strokeStyle = "#e0dfd9";
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.font = "36px serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("🎯", cx, cy);
+  ctx.textBaseline = "alphabetic";
+}
+
+drawWheel(0);
+
+function spin() {
+  if (spinning) return;
+  spinning = true;
+  clearInterval(timerInterval);
+  timerRunning = false;
+
+  const btn = document.getElementById("spinBtn");
+  btn.disabled = true;
+
+  document.getElementById("resultCard").classList.add("hidden");
+
+  const extra = Math.PI * 2 * (8 + Math.random() * 6);
+  const duration = 3800;
+  const start = performance.now();
+  const startAngle = currentAngle;
+
+  function animate(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    currentAngle = startAngle + extra * ease;
+    drawWheel(currentAngle);
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      spinning = false;
+      btn.disabled = false;
+      showResult();
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function showResult() {
+  const normalized = ((currentAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+  const pointerAngle = (2 * Math.PI - normalized) % (2 * Math.PI);
+  const idx = Math.floor(pointerAngle / arcSize) % N;
+  const o = oefeningen[idx];
+
+  document.getElementById("resultEmoji").textContent = o.emoji;
+  document.getElementById("resultName").textContent = o.naam;
+  document.getElementById("resultDesc").textContent = o.beschrijving;
+
+  timerTotal = o.seconden;
+  timerSec = o.seconden;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById("timerDisplay").textContent = formatTime(timerSec);
+  document.getElementById("timerBtn").textContent = "Start";
+  document.getElementById("timerBtn").classList.remove("active");
+
+  const card = document.getElementById("resultCard");
+  card.classList.remove("hidden");
+  card.style.borderColor = o.kleurLicht;
+}
+
+function formatTime(s) {
+  return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+}
+
+function toggleTimer() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById("timerBtn").textContent = "Doorgaan";
+    document.getElementById("timerBtn").classList.remove("active");
+  } else {
+    if (timerSec <= 0) {
+      timerSec = timerTotal;
+      document.getElementById("timerDisplay").textContent = formatTime(timerSec);
+    }
+    timerRunning = true;
+    document.getElementById("timerBtn").textContent = "Stop";
+    document.getElementById("timerBtn").classList.add("active");
+    timerInterval = setInterval(() => {
+      timerSec--;
+      document.getElementById("timerDisplay").textContent = formatTime(timerSec);
+      if (timerSec <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById("timerBtn").textContent = "Opnieuw";
+        document.getElementById("timerBtn").classList.remove("active");
+        document.getElementById("timerDisplay").textContent = "🎉 Klaar!";
+      }
+    }, 1000);
+  }
+}
+</script>
+</body>
+</html>

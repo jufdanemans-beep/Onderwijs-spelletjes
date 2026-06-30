@@ -35,7 +35,7 @@
 
   main {
     width: 100%;
-    max-width: 640px;
+    max-width: 1000px;
   }
 
   h1 {
@@ -52,6 +52,28 @@
     opacity: 0.7;
     margin-bottom: 36px;
     font-size: 1rem;
+  }
+
+  /* Drie kolommen naast elkaar, die op smalle schermen automatisch onder elkaar vallen */
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 700px) {
+    .columns {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .column h2 {
+    font-size: 1.1rem;
+    color: var(--brown);
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--mustard);
   }
 
   ul {
@@ -101,13 +123,32 @@
 <main>
   <h1>Mijn Onderwijsspelletjes</h1>
   <p class="subtitle">Klik op een spel om te starten</p>
-  <ul>
-    <li><a href="Spookwoordenboek Taaljacht Blok 1 groep 4.html">Spookwoordenboek Taaljacht Blok 1 groep 4</a></li>
-    <li><a href="Spookwoordenboek Taaljacht Blok 8 groep 4.html">Spookwoordenboek Taaljacht Blok 8 groep 4</a></li>
-    <li><a href="story-cubes.html">story-cubes</a></li>
-    <li><a href="breinbreak.html">breinbreak</a></li>
-  </ul>
+
+  <div class="columns">
+
+    <div class="column">
+      <h2>Taal &amp; woordenschat</h2>
+      <ul>
+        <li><a href="Spookwoordenboek Taaljacht Blok 1 groep 4.html">Spookwoordenboek Taaljacht Blok 1 groep 4</a></li>
+        <li><a href="Spookwoordenboek Taaljacht Blok 8 groep 4.html">Spookwoordenboek Taaljacht Blok 8 groep 4</a></li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <h2>Tussendoor</h2>
+      <ul>
+        <li><a href="breinbreak.html">breinbreak</a></li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <h2>Spelling &amp; stellen</h2>
+      <ul>
+        <li><a href="story-cubes.html">story-cubes</a></li>
+      </ul>
+    </div>
+
+  </div>
 </main>
 </body>
 </html>
-

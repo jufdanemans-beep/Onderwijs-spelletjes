@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pim Pam Pet — digitaal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF3E4;
+    --paper:#FFFDF8;
+    --ink:#2B2620;
+    --teal:#1F6F6B;
+    --teal-dark:#154B48;
+    --coral:#F2794A;
+    --coral-dark:#C85A2E;
+    --mustard:#E8A63A;
+    --plum:#7A4FA3;
+    --line:#E4D8BF;
+    --shadow: rgba(43,38,32,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(242,121,74,0.10) 0, transparent 40%),
+      radial-gradient(circle at 92% 85%, rgba(31,111,107,0.10) 0, transparent 42%);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 16px 60px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:clamp(28px, 5vw, 42px);
+    color:var(--teal-dark);
+    margin:0 0 4px;
+    text-align:center;
+  }
+  .subtitle{
+    font-size:15px;
+    color:#6b6455;
+    margin:0 0 28px;
+    text-align:center;
+  }
+
+  /* ---------- CARD ---------- */
+  .stage{
+    position:relative;
+    width:min(92vw, 420px);
+    aspect-ratio: 3/4;
+    perspective: 1400px;
+    margin-bottom:20px;
+  }
+  .card{
+    position:absolute; inset:0;
+    border-radius:24px;
+    transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    cursor:pointer;
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .face{
+    position:absolute; inset:0;
+    border-radius:24px;
+    backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 14px 0 -6px var(--shadow), 0 18px 30px var(--shadow);
+    border:3px solid var(--paper);
+    outline:3px solid var(--teal-dark);
+  }
+  .face-back{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.10) 0 10px, transparent 10px 20px),
+      linear-gradient(160deg, var(--teal) 0%, var(--teal-dark) 100%);
+  }
+  .face-back .crest{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--cream);
+    text-align:center;
+    letter-spacing:1px;
+  }
+  .face-back .crest .big{
+    font-size:52px;
+    line-height:1;
+    display:block;
+  }
+  .face-back .crest .small{
+    font-size:15px;
+    display:block;
+    margin-top:8px;
+    opacity:.85;
+  }
+  .face-front{
+    background:var(--paper);
+    transform:rotateY(180deg);
+    padding:24px;
+    gap:6px;
+  }
+  .face-front .letter{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:min(22vw, 100px);
+    line-height:1;
+    color:var(--coral-dark);
+  }
+  .face-front .category{
+    font-family:'Baloo 2', sans-serif;
+    font-size:clamp(18px,4vw,24px);
+    color:var(--teal-dark);
+    text-align:center;
+    padding:0 12px;
+  }
+  .face-front .hint{
+    font-size:13px;
+    color:#8a8272;
+    margin-top:10px;
+  }
+
+  /* timer ring, only visible on front */
+  .ring-wrap{
+    position:absolute;
+    top:14px; right:14px;
+    width:56px; height:56px;
+  }
+  .ring-wrap svg{ transform:rotate(-90deg); }
+  .ring-bg{ fill:none; stroke:var(--line); stroke-width:6; }
+  .ring-fg{ fill:none; stroke:var(--coral); stroke-width:6; stroke-linecap:round; transition:stroke-dashoffset .25s linear, stroke .2s; }
+  .ring-num{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:17px; color:var(--teal-dark);
+  }
+
+  /* ---------- CONTROLS ---------- */
+  .controls{
+    display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:26px;
+  }
+  button{
+    font-family:'Baloo 2', sans-serif;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    padding:12px 22px;
+    cursor:pointer;
+    box-shadow:0 4px 0 0 rgba(0,0,0,0.15);
+    transition:transform .08s ease;
+  }
+  button:active{ transform:translateY(3px); box-shadow:0 1px 0 0 rgba(0,0,0,0.15); }
+  .btn-primary{ background:var(--coral); color:#fff; }
+  .btn-secondary{ background:var(--teal); color:#fff; }
+  .btn-ghost{ background:var(--paper); color:var(--teal-dark); border:2px solid var(--line); box-shadow:none; }
+  .btn-ghost:active{ transform:none; }
+
+  select#category-select{
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+    border:2px solid var(--line);
+    border-radius:12px;
+    padding:9px 12px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .filter-row{
+    display:flex; align-items:center; gap:8px; margin-bottom:22px; font-size:14px; color:#6b6455;
+  }
+
+  /* ---------- SCOREBOARD ---------- */
+  .board{
+    display:flex; gap:16px; flex-wrap:wrap; justify-content:center; width:100%; max-width:520px;
+  }
+  .team{
+    flex:1; min-width:150px;
+    background:var(--paper);
+    border-radius:18px;
+    border:3px solid var(--line);
+    padding:14px 16px;
+    text-align:center;
+  }
+  .team.t1{ border-color:var(--teal); }
+  .team.t2{ border-color:var(--coral); }
+  .team-name{
+    font-family:'Baloo 2', sans-serif;
+    font-size:16px;
+    margin-bottom:2px;
+  }
+  .team.t1 .team-name{ color:var(--teal-dark); }
+  .team.t2 .team-name{ color:var(--coral-dark); }
+  .team-score{
+    font-family:'Baloo 2', sans-serif;
+    font-size:38px;
+    font-weight:700;
+    margin:2px 0 10px;
+  }
+  .team-buttons{ display:flex; gap:8px; justify-content:center; }
+  .team-buttons button{
+    padding:6px 14px; font-size:15px; box-shadow:0 3px 0 0 rgba(0,0,0,0.15);
+  }
+  .t1 .plus{ background:var(--teal); color:#fff; }
+  .t2 .plus{ background:var(--coral); color:#fff; }
+  .minus{ background:transparent; color:#9a9284; border:2px solid var(--line); box-shadow:none; }
+  .minus:active{ transform:none; }
+
+  .reset-row{ margin-top:18px; }
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  @media (max-width:420px){
+    .board{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Pim Pam Pet</h1>
+<p class="subtitle">Klik op de kaart voor een letter en categorie. Wie het snelst iets goeds bedenkt, scoort een punt!</p>
+
+<div class="filter-row">
+  <label for="category-select">Categorie:</label>
+  <select id="category-select">
+    <option value="__random__">Willekeurig</option>
+  </select>
+</div>
+
+<div class="stage">
+  <div class="card" id="card">
+    <div class="face face-back" id="face-back">
+      <span class="crest">
+        <span class="big">🐾</span>
+        <span class="small">tik om te draaien</span>
+      </span>
+    </div>
+    <div class="face face-front">
+      <div class="ring-wrap" id="ring-wrap">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <circle class="ring-bg" cx="28" cy="28" r="24"></circle>
+          <circle class="ring-fg" id="ring-fg" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="0"></circle>
+        </svg>
+        <div class="ring-num" id="ring-num">10</div>
+      </div>
+      <div class="letter" id="letter">A</div>
+      <div class="category" id="category">dieren</div>
+      <div class="hint" id="hint">tik om nieuwe ronde te starten</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn-primary" id="new-round-btn">Nieuwe ronde</button>
+  <button class="btn-secondary" id="timer-btn">Start timer (10s)</button>
+</div>
+
+<div class="board">
+  <div class="team t1">
+    <div class="team-name">Team 1</div>
+    <div class="team-score" id="score1">0</div>
+    <div class="team-buttons">
+      <button class="plus" id="plus1">+1</button>
+      <button class="minus" id="minus1">−1</button>
+    </div>
+  </div>
+  <div class="team t2">
+    <div class="team-name">Team 2</div>
+    <div class="team-score" id="score2">0</div>
+    <div class="team-buttons">
+      <button class="plus" id="plus2">+1</button>
+      <button class="minus" id="minus2">−1</button>
+    </div>
+  </div>
+</div>
+
+<div class="reset-row">
+  <button class="btn-ghost" id="reset-btn">Scores resetten</button>
+</div>
+
+<script>
+  const categories = [
+    "dieren", "landen", "steden", "kleuren", "fruit", "groenten",
+    "sporten", "beroepen", "dingen in de klas", "dingen in de keuken",
+    "films of series", "voetbalclubs", "kledingstukken", "muziekinstrumenten",
+    "vervoersmiddelen", "dieren in de zee", "snoep of lekkernijen",
+    "namen van jongens", "namen van meisjes", "dingen die je buiten ziet",
+    "vakantiebestemmingen", "dieren op de boerderij", "dingen in de tas",
+    "smaken van ijs", "dieren in het bos"
+  ];
+
+  const letters = "ABCDEFGHIJKLMNOPRSTUVWZ".split("");
+
+  const select = document.getElementById("category-select");
+  categories.slice().sort((a,b)=>a.localeCompare(b,'nl')).forEach(cat=>{
+    const opt = document.createElement("option");
+    opt.value = cat; opt.textContent = cat;
+    select.appendChild(opt);
+  });
+
+  const card = document.getElementById("card");
+  const letterEl = document.getElementById("letter");
+  const categoryEl = document.getElementById("category");
+  const hintEl = document.getElementById("hint");
+  const newRoundBtn = document.getElementById("new-round-btn");
+  const timerBtn = document.getElementById("timer-btn");
+  const ringFg = document.getElementById("ring-fg");
+  const ringNum = document.getElementById("ring-num");
+
+  const CIRC = 2 * Math.PI * 24;
+  let timerInterval = null;
+  let secondsLeft = 10;
+  let lastCategory = null;
+  let lastLetter = null;
+
+  function pickCategory(){
+    const chosen = select.value;
+    if (chosen !== "__random__") return chosen;
+    let pool = categories.filter(c => c !== lastCategory);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function pickLetter(){
+    let pool = letters.filter(l => l !== lastLetter);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function stopTimer(){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    secondsLeft = 10;
+    ringFg.style.stroke = "var(--coral)";
+    ringFg.setAttribute("stroke-dashoffset", 0);
+    ringNum.textContent = secondsLeft;
+    timerBtn.textContent = "Start timer (10s)";
+  }
+
+  function startTimer(){
+    stopTimer();
+    secondsLeft = 10;
+    ringNum.textContent = secondsLeft;
+    timerBtn.textContent = "Stop timer";
+    timerInterval = setInterval(()=>{
+      secondsLeft -= 1;
+      ringNum.textContent = Math.max(secondsLeft, 0);
+      const fraction = Math.max(secondsLeft, 0) / 10;
+      ringFg.setAttribute("stroke-dashoffset", CIRC * (1 - fraction));
+      if (secondsLeft <= 3) ringFg.style.stroke = "var(--plum)";
+      if (secondsLeft <= 0){
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerBtn.textContent = "Start timer (10s)";
+      }
+    }, 1000);
+  }
+
+  function newRound(){
+    lastCategory = pickCategory();
+    lastLetter = pickLetter();
+    letterEl.textContent = lastLetter;
+    categoryEl.textContent = lastCategory;
+    hintEl.textContent = "veel plezier!";
+    card.classList.add("flipped");
+    stopTimer();
+  }
+
+  card.addEventListener("click", ()=>{
+    if (!card.classList.contains("flipped")){
+      newRound();
+    } else {
+      card.classList.remove("flipped");
+      stopTimer();
+      hintEl.textContent = "tik om nieuwe ronde te starten";
+    }
+  });
+
+  newRoundBtn.addEventListener("click", (e)=>{
+    e.stopPropagation();
+    card.classList.add("flipped");
+    newRound();
+  });
+
+  timerBtn.addEventListener("click", (e)=>{
+    e.stopPropagation();
+    if (timerInterval) stopTimer();
+    else startTimer();
+  });
+
+  // Scoreboard
+  const scores = { 1: 0, 2: 0 };
+  const score1El = document.getElementById("score1");
+  const score2El = document.getElementById("score2");
+
+  function updateScores(){
+    score1El.textContent = scores[1];
+    score2El.textContent = scores[2];
+  }
+
+  document.getElementById("plus1").addEventListener("click", ()=>{ scores[1]++; updateScores(); });
+  document.getElementById("minus1").addEventListener("click", ()=>{ scores[1] = Math.max(0, scores[1]-1); updateScores(); });
+  document.getElementById("plus2").addEventListener("click", ()=>{ scores[2]++; updateScores(); });
+  document.getElementById("minus2").addEventListener("click", ()=>{ scores[2] = Math.max(0, scores[2]-1); updateScores(); });
+  document.getElementById("reset-btn").addEventListener("click", ()=>{
+    scores[1]=0; scores[2]=0; updateScores();
+  });
+</script>
+</body>
+</html>

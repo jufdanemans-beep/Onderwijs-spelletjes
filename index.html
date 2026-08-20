@@ -55,11 +55,12 @@
   }
 
   /* Vijf kolommen naast elkaar, die op smalle schermen automatisch onder elkaar vallen */
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
+.columns {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
 
   @media (max-width: 700px) {
     .columns {
@@ -67,14 +68,20 @@
     }
   }
 
-  .column h2 {
-    font-size: 1.1rem;
-    color: var(--brown);
-    text-align: center;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 3px solid var(--mustard);
-  }
+.column h2 {
+  font-size: 1.1rem;
+  color: var(--brown);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--mustard);
+
+  min-height: 62px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
 
   ul {
     list-style: none;

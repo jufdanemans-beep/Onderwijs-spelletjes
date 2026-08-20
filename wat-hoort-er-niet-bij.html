@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wat hoort er niet bij?</title>
+  <style>
+    :root{--ink:#24324b;--muted:#667085;--paper:#fffdf7;--purple:#6d4aff;--purple2:#8b72ff;--mint:#dff7ee;--yellow:#fff2bd;--pink:#ffe0ea;--line:#e7e2d8;--shadow:0 14px 40px rgba(48,38,92,.14)}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#f5f1ff,#fff9e8 50%,#eafbf4);color:var(--ink);font-family:ui-rounded,"Segoe UI",Arial,sans-serif;min-height:100vh}
+    button,select{font:inherit}button{cursor:pointer}.app{width:min(1080px,100%);margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}.brand{display:flex;gap:13px;align-items:center}.logo{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;background:var(--purple);color:white;font-size:32px;transform:rotate(-4deg);box-shadow:var(--shadow)}h1,p{margin:0}h1{font-size:clamp(1.7rem,4vw,2.5rem)}.subtitle{color:var(--muted);margin-top:4px}.settings{display:flex;gap:10px;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:5px;font-weight:700;font-size:.9rem}.field select{min-width:145px;padding:10px 36px 10px 12px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink)}
+    .layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,.65fr);gap:20px}.game,.coach{background:rgba(255,255,255,.92);border:1px solid white;border-radius:26px;box-shadow:var(--shadow)}.game{padding:22px}.steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.step{padding:7px 12px;border-radius:999px;background:#f0edf8;color:var(--muted);font-weight:700}.step.on{background:var(--purple);color:white}.question{font-size:1.25rem;font-weight:800;margin-bottom:14px}
+    .board{position:relative;width:min(100%,620px);aspect-ratio:1;margin:auto;background:center/cover no-repeat;border-radius:22px;overflow:hidden;box-shadow:0 8px 22px rgba(38,37,67,.16)}.pick{position:absolute;width:50%;height:50%;border:6px solid transparent;background:transparent;color:transparent}.pick:hover{background:rgba(255,255,255,.13)}.pick:focus-visible{outline:5px solid #fff;outline-offset:-10px}.pick.selected{border-color:var(--purple);background:rgba(109,74,255,.13)}.pick.selected::after{content:'✓';position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--purple);color:#fff;font-size:24px;font-weight:900}.p0{left:0;top:0}.p1{right:0;top:0}.p2{left:0;bottom:0}.p3{right:0;bottom:0}
+    .answer{display:none;margin-top:16px;padding:16px 18px;background:var(--yellow);border-radius:18px}.answer.show{display:block}.starter{font-size:1.12rem;font-weight:800}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:13px;padding:11px 16px;background:#eeeaf8;color:var(--ink);font-weight:800}.btn.primary{background:var(--purple);color:white}.btn:hover{filter:brightness(.97)}
+    .side{display:flex;flex-direction:column;gap:14px}.coach{padding:18px}.coach h2{font-size:1.05rem;margin:0 0 8px}.role{display:flex;gap:12px;align-items:flex-start}.role-icon{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;background:var(--mint);font-size:23px}.coach:nth-child(2) .role-icon{background:var(--pink)}.coach:nth-child(3) .role-icon{background:var(--yellow)}.prompt{font-weight:700}.small{color:var(--muted);font-size:.94rem;margin-top:6px}.counter{font-weight:900;color:var(--purple)}
+    @media(max-width:760px){.app{padding:14px}.layout{grid-template-columns:1fr}.settings{width:100%}.field{flex:1}.field select{width:100%;min-width:0}.game{padding:14px}.pick{border-width:4px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div class="brand"><div class="logo" aria-hidden="true">🔎</div><div><h1>Wat hoort er niet bij?</h1><p class="subtitle">Kies, vertel en ontdek: er zijn meerdere goede antwoorden.</p></div></div>
+    <div class="settings">
+      <label class="field">Niveau<select id="level"><option value="nt1">NT2 fase 1</option><option value="nt2">NT2 fase 2</option><option value="nt3">NT2 fase 3</option><option value="nt4">NT2 fase 4</option><option value="nt5">NT2 fase 5</option><option value="young">Groep 1–3</option><option value="middle" selected>Groep 4–6</option><option value="old">Groep 7–8</option></select></label>
+      <label class="field">Plaatjes<select id="set"><option value="0">Eten</option><option value="1">Kleding en weer</option><option value="2">School</option><option value="3">Dieren</option><option value="4">Vervoer</option><option value="5">Speelgoed</option><option value="6">Sport en muziek</option><option value="7">Thuis</option><option value="8">Natuur</option><option value="9">Feest</option><option value="10">Muziek</option><option value="11">Verzorging</option><option value="12">Beroepen</option></select></label>
+    </div>
+  </header>
+  <div class="layout">
+    <section class="game">
+      <div class="steps"><span class="step on" id="s1">1 Kies</span><span class="step" id="s2">2 Vertel</span><span class="step" id="s3">3 Denk opnieuw</span></div>
+      <p class="question" id="question">Welk plaatje hoort er volgens jou niet bij?</p>
+      <div class="board" id="board" role="group" aria-label="Vier afbeeldingen waaruit je kunt kiezen">
+        <button class="pick p0" data-i="0" aria-label="Kies afbeelding linksboven"></button><button class="pick p1" data-i="1" aria-label="Kies afbeelding rechtsboven"></button><button class="pick p2" data-i="2" aria-label="Kies afbeelding linksonder"></button><button class="pick p3" data-i="3" aria-label="Kies afbeelding rechtsonder"></button>
+      </div>
+      <div class="answer" id="answer" aria-live="polite"><div class="starter" id="starter"></div><p class="small" id="model"></p></div>
+      <div class="actions"><button class="btn primary" id="again">Vind nóg een antwoord</button><button class="btn" id="next">Nieuwe plaatjes</button></div>
+    </section>
+    <aside class="side">
+      <section class="coach"><div class="role"><div class="role-icon" aria-hidden="true">🧑‍🏫</div><div><h2>Vraag van de praatcoach</h2><p class="prompt" id="coachPrompt">Kun je uitleggen waarom?</p></div></div></section>
+      <section class="coach"><div class="role"><div class="role-icon" aria-hidden="true">💬</div><div><h2>Reageren op de leerkracht</h2><p class="prompt" id="respond">Ik denk er anders over, want …</p><p class="small">De leerkracht kiest bewust een ander plaatje.</p></div></div></section>
+      <section class="coach"><div class="role"><div class="role-icon" aria-hidden="true">⭐</div><div><h2>Praatmissie</h2><p class="prompt" id="mission">Geef een duidelijke reden.</p><p class="small"><span class="counter" id="count">0</span> redeneringen gevonden</p></div></div></section>
+    </aside>
+  </div>
+</main>
+<script>
+const sets=[
+ {img:'assets/plaatjes-eten.png',names:['appel','banaan','wortel','aardbei']},
+ {img:'assets/plaatjes-kleding.png',names:['regenjas','laarzen','paraplu','zwempak']},
+ {img:'assets/plaatjes-school.png',names:['boek','potlood','schrift','voetbal']},
+ {img:'assets/plaatjes-dieren.png',names:['hond','kat','konijn','vis']},
+ {img:'assets/plaatjes-vervoer.png',names:['fiets','bus','trein','vliegtuig']},
+ {img:'assets/plaatjes-speelgoed.png',names:['knuffelbeer','blokken','puzzel','koekenpan']},
+ {img:'assets/plaatjes-sport.png',names:['voetbal','basketbal','tennisracket','gitaar']},
+ {img:'assets/plaatjes-thuis.png',names:['bed','bank','lamp','boom']},
+ {img:'assets/plaatjes-natuur.png',names:['boom','zonnebloem','paddenstoel','ijsje']},
+ {img:'assets/plaatjes-feest.png',names:['ballonnen','taart','cadeau','rugzak']},
+ {img:'assets/plaatjes-muziek.png',names:['gitaar','trommel','keyboard','skateboard']},
+ {img:'assets/plaatjes-verzorging.png',names:['tandenborstel','zeep','haarborstel','vork']},
+ {img:'assets/plaatjes-beroepen.png',names:['brandweerhelm','schilderspalet','stethoscoop','garde']}
+];
+const levels={
+ nt1:{q:'Kijk goed naar de vier plaatjes. Wat zie je?',start:n=>`Ik zie …  •  Dat is een ${n}.`,model:'Een woord, aanwijzen of een gebaar is ook een goede reactie.',coach:'Wat zie je? Vertel of wijs het aan.',respond:'Ik zie …',mission:'Benoem of wijs twee plaatjes aan.'},
+ nt2:{q:'Kijk naar de plaatjes. Welke kies jij?',start:n=>`Ik kies de ${n}.`,model:'De leerkracht breidt het antwoord uit en modelt een volledige zin.',coach:'Wat kun je over dit plaatje vertellen?',respond:'Ik kies …',mission:'Maak een korte zin van minimaal twee woorden.'},
+ nt3:{q:'Welk plaatje hoort er volgens jou niet bij?',start:n=>`Volgens mij hoort de ${n} er niet bij, omdat …`,model:'Vertel in korte, eenvoudige zinnen en geef één reden.',coach:'Waarom denk je dat? Kun je iets meer vertellen?',respond:'Ik denk er anders over, want …',mission:'Geef een reden bij je keuze.'},
+ nt4:{q:'Kies wat niet past en leg jouw gedachte stap voor stap uit.',start:n=>`Eerst keek ik naar … Daarna koos ik de ${n}, omdat …`,model:'Verbind zinnen met en, maar, omdat of daarna.',coach:'Welke plaatjes horen volgens jou juist bij elkaar?',respond:'Ik begrijp jouw keuze, maar …',mission:'Geef een reden én vergelijk twee plaatjes.'},
+ nt5:{q:'Welke afbeelding past het minst? Onderbouw jouw keuze.',start:n=>`Volgens mij past de ${n} het minst, want …`,model:'Er zijn verschillende goede antwoorden. Reageer ook op de andere mening.',coach:'Kun je nog een andere geldige indeling bedenken?',respond:'Ik heb een andere mening, omdat …',mission:'Onderbouw en reageer op een tegenargument.'},
+ young:{q:'Kijk goed. Welk plaatje hoort er volgens jou niet bij?',start:n=>`Volgens mij hoort de ${n} er niet bij, omdat …`,model:'Alles wat je goed kunt uitleggen, kan een goed antwoord zijn.',coach:'Kun je daar meer over vertellen?',respond:'Ik denk iets anders, want …',mission:'Geef één duidelijke reden.'},
+ middle:{q:'Welk plaatje hoort er volgens jou niet bij? Leg je keuze uit.',start:n=>`Volgens mij hoort de ${n} er niet bij, omdat …`,model:'Zoek daarna nog een andere mogelijke oplossing.',coach:'Welke eigenschap hebben de andere drie gemeen?',respond:'Ik begrijp jouw keuze, maar …',mission:'Vind twee verschillende redeneringen.'},
+ old:{q:'Welke afbeelding wijkt volgens jou af? Overtuig de leerkracht.',start:n=>`Mijn keuze is de ${n}, omdat … Een tegenargument kan zijn …`,model:'Onderbouw, reageer op kritiek en probeer daarna van perspectief te wisselen.',coach:'Wat zou iemand met een andere mening kunnen zeggen?',respond:'Ik begrijp jouw argument; toch denk ik …',mission:'Geef een argument, tegenargument en reactie.'}
+};
+const board=document.getElementById('board'),level=document.getElementById('level'),setSelect=document.getElementById('set'),answer=document.getElementById('answer'),starter=document.getElementById('starter');let selected=-1,count=0;
+function render(){const set=sets[+setSelect.value],l=levels[level.value];board.style.backgroundImage=`url('${set.img}')`;document.getElementById('question').textContent=l.q;document.getElementById('coachPrompt').textContent=l.coach;document.getElementById('respond').textContent=l.respond;document.getElementById('mission').textContent=l.mission;document.getElementById('model').textContent=l.model;document.querySelectorAll('.pick').forEach(b=>b.classList.remove('selected'));answer.classList.remove('show');selected=-1;count=0;document.getElementById('count').textContent=count;steps(1)}
+function steps(n){[1,2,3].forEach(i=>document.getElementById('s'+i).classList.toggle('on',i===n))}
+document.querySelectorAll('.pick').forEach(b=>b.addEventListener('click',()=>{selected=+b.dataset.i;document.querySelectorAll('.pick').forEach(x=>x.classList.toggle('selected',x===b));starter.textContent=levels[level.value].start(sets[+setSelect.value].names[selected]);answer.classList.add('show');count++;document.getElementById('count').textContent=count;steps(2)}));
+document.getElementById('again').addEventListener('click',()=>{document.querySelectorAll('.pick').forEach(x=>x.classList.remove('selected'));answer.classList.remove('show');selected=-1;steps(3);document.getElementById('coachPrompt').textContent='Welke andere afbeelding kun je kiezen? Bedenk een nieuwe reden.'});
+document.getElementById('next').addEventListener('click',()=>{setSelect.value=(+setSelect.value+1)%sets.length;render()});level.addEventListener('change',render);setSelect.addEventListener('change',render);render();
+</script>
+</body>
+</html>

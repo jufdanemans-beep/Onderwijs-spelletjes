@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>TaalPraat – mondelinge taalvaardigheid</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Taalpraat" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Taalpraat&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: var(--border-radius-lg, 12.5px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress {
+  display: flex;
+  height: 6px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 6px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;taalpraat-app&quot;&gt;
+  &lt;style&gt;
+    #taalpraat-app { color: var(--foreground); }
+    #taalpraat-app .tp-head { display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; margin-bottom:18px; }
+    #taalpraat-app .tp-brand { display:flex; gap:12px; align-items:center; }
+    #taalpraat-app .tp-logo { width:54px; height:54px; display:grid; place-items:center; border-radius:50%; background:var(--primary); color:var(--primary-foreground); font-size:28px; transform:rotate(-5deg); }
+    #taalpraat-app .tp-head h1, #taalpraat-app .tp-head p { margin:0; }
+    #taalpraat-app .tp-head p { color:var(--muted-foreground); margin-top:5px; }
+    #taalpraat-app .tp-controls { margin-bottom:18px; }
+    #taalpraat-app .tp-main { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(240px,.6fr); gap:18px; }
+    #taalpraat-app .tp-stage { position:relative; overflow:hidden; padding:24px; background:color-mix(in srgb, var(--card) 86%, var(--yellow) 14%); color:var(--card-foreground); border:1px solid var(--border); border-radius:24px; }
+    #taalpraat-app .tp-stage::before { content:&#x27;✦&#x27;; position:absolute; right:18px; top:10px; color:var(--orange); font-size:32px; transform:rotate(12deg); }
+    #taalpraat-app .tp-kicker { display:flex; gap:8px; align-items:center; flex-wrap:wrap; color:var(--muted-foreground); margin-bottom:14px; }
+    #taalpraat-app .tp-question { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; margin:10px 0 16px; }
+    #taalpraat-app .tp-topic-icon { width:70px; height:70px; display:grid; place-items:center; border-radius:22px; background:color-mix(in srgb, var(--purple) 22%, var(--card)); font-size:38px; transform:rotate(-3deg); }
+    #taalpraat-app .tp-bubble { position:relative; padding:18px; margin:14px 0; background:var(--accent); color:var(--accent-foreground); border-radius:20px 20px 20px 5px; }
+    #taalpraat-app .tp-bubble strong { display:block; margin-bottom:6px; }
+    #taalpraat-app .tp-task { font-weight:500; margin:0; }
+    #taalpraat-app .tp-support { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+    #taalpraat-app .tp-support section { padding-top:12px; border-top:1px solid var(--border); }
+    #taalpraat-app .tp-support h3, #taalpraat-app .tp-support p { margin:0; }
+    #taalpraat-app .tp-support p { margin-top:6px; }
+    #taalpraat-app .tp-side { display:flex; flex-direction:column; gap:14px; }
+    #taalpraat-app .tp-side section { padding:16px; background:var(--card); color:var(--card-foreground); border:1px solid var(--border); border-radius:18px; }
+    #taalpraat-app .tp-role { display:flex; gap:12px; align-items:flex-start; }
+    #taalpraat-app .tp-role-icon { width:42px; height:42px; flex:0 0 42px; display:grid; place-items:center; border-radius:50%; background:color-mix(in srgb, var(--blue) 22%, var(--card)); font-size:22px; }
+    #taalpraat-app .tp-side section:nth-child(2) .tp-role-icon { background:color-mix(in srgb, var(--green) 22%, var(--card)); }
+    #taalpraat-app .tp-side h2, #taalpraat-app .tp-side p { margin:0; }
+    #taalpraat-app .tp-side p { margin-top:7px; }
+    #taalpraat-app .tp-listen { color:var(--muted-foreground); }
+    #taalpraat-app .tp-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+    #taalpraat-app .tp-progress { display:flex; gap:5px; align-items:center; margin:8px 0 0; }
+    #taalpraat-app .tp-dot { height:8px; flex:1; border-radius:8px; background:var(--muted); }
+    #taalpraat-app .tp-dot.on { background:var(--primary); }
+    #taalpraat-app .tp-reflect { margin-top:16px; padding-top:14px; border-top:1px solid var(--border); }
+    #taalpraat-app [hidden] { display:none !important; }
+    #taalpraat-app .tp-mission { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 14px; }
+    #taalpraat-app .tp-mission span { padding:6px 10px; border-radius:999px; background:var(--muted); color:var(--muted-foreground); }
+    #taalpraat-app .tp-mission span.active { background:var(--primary); color:var(--primary-foreground); }
+    @media (max-width:650px) { #taalpraat-app .tp-main { grid-template-columns:1fr; } #taalpraat-app .tp-support { grid-template-columns:1fr; } #taalpraat-app .tp-question { grid-template-columns:1fr; } }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;tp-head&quot;&gt;
+    &lt;div class=&quot;tp-brand&quot;&gt;
+      &lt;div class=&quot;tp-logo&quot; aria-hidden=&quot;true&quot;&gt;💬&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h1&gt;TaalPraat!&lt;/h1&gt;
+        &lt;p&gt;Trek een kaart. Deel je idee. Luister als een detective.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class=&quot;viz-badge&quot; id=&quot;tp-goal&quot;&gt;Vertellen&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;viz-controls tp-controls&quot; aria-label=&quot;Instellingen&quot;&gt;
+    &lt;label class=&quot;form-label&quot;&gt;Leerroute
+      &lt;select class=&quot;form-select&quot; id=&quot;tp-route&quot;&gt;
+        &lt;option value=&quot;regular&quot;&gt;Groep 1–8&lt;/option&gt;
+        &lt;option value=&quot;nt2&quot;&gt;NT2 fase 1–5&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;form-label&quot; id=&quot;tp-level-label&quot;&gt;Groep
+      &lt;select class=&quot;form-select&quot; id=&quot;tp-level&quot;&gt;&lt;/select&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;form-label&quot;&gt;Thema
+      &lt;select class=&quot;form-select&quot; id=&quot;tp-theme&quot;&gt;
+        &lt;option value=&quot;ik&quot;&gt;Ik en mijn wereld&lt;/option&gt;
+        &lt;option value=&quot;dagelijks&quot;&gt;Vandaag en elke dag&lt;/option&gt;
+        &lt;option value=&quot;school&quot;&gt;School en leren&lt;/option&gt;
+        &lt;option value=&quot;fantasie&quot;&gt;Fantasie en verhalen&lt;/option&gt;
+        &lt;option value=&quot;samen&quot;&gt;Samen en keuzes&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;tp-main&quot;&gt;
+    &lt;article class=&quot;tp-stage&quot; aria-live=&quot;polite&quot;&gt;
+      &lt;div class=&quot;tp-kicker&quot;&gt;&lt;span id=&quot;tp-mode&quot;&gt;Praatkaart&lt;/span&gt;&lt;span&gt;•&lt;/span&gt;&lt;span id=&quot;tp-round&quot;&gt;Ronde 1 van 3&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;tp-mission&quot; aria-label=&quot;Drie stappen&quot;&gt;&lt;span class=&quot;active&quot;&gt;1 Denk&lt;/span&gt;&lt;span&gt;2 Praat&lt;/span&gt;&lt;span&gt;3 Luister&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;tp-question&quot;&gt;
+        &lt;div class=&quot;tp-topic-icon&quot; id=&quot;tp-topic-icon&quot; aria-hidden=&quot;true&quot;&gt;🌟&lt;/div&gt;
+        &lt;p class=&quot;tp-task&quot; id=&quot;tp-prompt&quot;&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;tp-bubble&quot;&gt;
+        &lt;strong&gt;Startzin voor de leerling&lt;/strong&gt;
+        &lt;span id=&quot;tp-starter&quot;&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;tp-support&quot;&gt;
+        &lt;section&gt;
+          &lt;h3&gt;Luisteropdracht&lt;/h3&gt;
+          &lt;p id=&quot;tp-listener&quot;&gt;&lt;/p&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+          &lt;h3&gt;Taaltip&lt;/h3&gt;
+          &lt;p id=&quot;tp-tip&quot;&gt;&lt;/p&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;tp-actions&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;tp-next&quot;&gt;&lt;i data-lucide=&quot;shuffle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Nieuwe praatkaart&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;tp-reflect-btn&quot;&gt;&lt;i data-lucide=&quot;message-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Rond af&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;tp-reflect&quot; id=&quot;tp-reflect&quot; hidden&gt;
+        &lt;strong&gt;Terugblik&lt;/strong&gt;
+        &lt;p id=&quot;tp-reflection&quot;&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;aside class=&quot;tp-side&quot;&gt;
+      &lt;section&gt;
+        &lt;div class=&quot;tp-role&quot;&gt;&lt;div class=&quot;tp-role-icon&quot; aria-hidden=&quot;true&quot;&gt;🧑‍🏫&lt;/div&gt;&lt;div&gt;&lt;h2&gt;Praatcoach&lt;/h2&gt;&lt;p id=&quot;tp-teacher&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/section&gt;
+      &lt;section&gt;
+        &lt;div class=&quot;tp-role&quot;&gt;&lt;div class=&quot;tp-role-icon&quot; aria-hidden=&quot;true&quot;&gt;🕵️&lt;/div&gt;&lt;div&gt;&lt;h2&gt;Luisterdetective&lt;/h2&gt;&lt;p id=&quot;tp-listener-side&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/section&gt;
+      &lt;section&gt;
+        &lt;h2&gt;Jouw praatkracht&lt;/h2&gt;
+        &lt;p class=&quot;tp-listen&quot; id=&quot;tp-line&quot;&gt;&lt;/p&gt;
+        &lt;div class=&quot;tp-progress&quot; id=&quot;tp-progress&quot; aria-label=&quot;Plaats in de doorlopende leerlijn&quot;&gt;&lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/aside&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+  (() =&gt; {
+    const root = document.getElementById(&#x27;taalpraat-app&#x27;);
+    const $ = id =&gt; root.querySelector(&#x27;#&#x27; + id);
+    const ladder = [&#x27;Vertellen&#x27;,&#x27;Uitleggen&#x27;,&#x27;Onderbouwen&#x27;,&#x27;Presenteren&#x27;,&#x27;Argumenteren&#x27;,&#x27;Reflecteren&#x27;];
+    const regular = [
+      {label:&#x27;Groep 1–2 · 4–6 jaar&#x27;,goal:0,starter:&#x27;Ik wil vertellen over …&#x27;,tip:&#x27;Vertel in een hele zin. Wijs aan of beeld uit als dat helpt.&#x27;,teacher:&#x27;Kun je daar meer over vertellen?&#x27;},
+      {label:&#x27;Groep 3 · 6–7 jaar&#x27;,goal:1,starter:&#x27;Eerst … en daarna …&#x27;,tip:&#x27;Leg stap voor stap uit. Gebruik eerst, dan en daarna.&#x27;,teacher:&#x27;Hoe weet je dat?&#x27;},
+      {label:&#x27;Groep 4 · 7–8 jaar&#x27;,goal:1,starter:&#x27;Het belangrijkste is … omdat …&#x27;,tip:&#x27;Vertel in een duidelijke volgorde en noem de belangrijkste informatie.&#x27;,teacher:&#x27;Kun je het samenvatten?&#x27;},
+      {label:&#x27;Groep 5 · 8–9 jaar&#x27;,goal:2,starter:&#x27;Ik denk dat …, want …&#x27;,tip:&#x27;Geef je mening én minstens één reden of voorbeeld.&#x27;,teacher:&#x27;Kun je een voorbeeld geven?&#x27;},
+      {label:&#x27;Groep 6 · 9–10 jaar&#x27;,goal:3,starter:&#x27;Kort samengevat …&#x27;,tip:&#x27;Begin met de kern, licht toe en sluit af met een conclusie.&#x27;,teacher:&#x27;Waarom denk je dat?&#x27;},
+      {label:&#x27;Groep 7 · 10–11 jaar&#x27;,goal:4,starter:&#x27;Ik begrijp jouw punt, maar …&#x27;,tip:&#x27;Luister kritisch, vergelijk standpunten en reageer op het argument.&#x27;,teacher:&#x27;Wat zou iemand met een andere mening zeggen?&#x27;},
+      {label:&#x27;Groep 8 · 11–13 jaar&#x27;,goal:5,starter:&#x27;Mijn sterkste argument is …; achteraf denk ik …&#x27;,tip:&#x27;Overtuig met argumenten en reflecteer daarna op je manier van spreken en luisteren.&#x27;,teacher:&#x27;Wat zou je de volgende keer anders doen?&#x27;}
+    ];
+    const nt2 = [
+      {label:&#x27;Fase 1&#x27;,goal:0,starter:&#x27;Ik zie … / Dat is een … / Ik ben …&#x27;,tip:&#x27;Een woord of gebaar is een goede start. Benoem wat de leerling aanwijst en model daarna de hele zin.&#x27;,teacher:&#x27;Kijk samen naar de beelden. Vraag: “Wat zie je?” Model daarna: “Ik zie …” en geef ruime wachttijd.&#x27;,listener:&#x27;Kijk naar de spreker. Reageer met een woord, aanwijzen of een gebaar.&#x27;},
+      {label:&#x27;Fase 2&#x27;,goal:0,starter:&#x27;Ik ben … jaar. / Ik draag een …&#x27;,tip:&#x27;Gebruik een korte zin van minimaal twee woorden. Herhaal het taalpatroon.&#x27;,teacher:&#x27;Kun je de zin nazeggen en aanvullen?&#x27;},
+      {label:&#x27;Fase 3&#x27;,goal:0,starter:&#x27;Ik vind … leuk, omdat …&#x27;,tip:&#x27;Vertel in korte zinnen over wie, wat en waar. Voeg één reden toe.&#x27;,teacher:&#x27;Wie? Wat? Waar? Waarom?&#x27;},
+      {label:&#x27;Fase 4&#x27;,goal:1,starter:&#x27;Eerst … en daarna … / Ik geef uitleg over …&#x27;,tip:&#x27;Verbind twee zinnen met en, maar, omdat of daarna.&#x27;,teacher:&#x27;Kun je stap voor stap uitleggen hoe het gaat?&#x27;},
+      {label:&#x27;Fase 5&#x27;,goal:2,starter:&#x27;Ik vind …, want … / Ik heb een andere mening, omdat …&#x27;,tip:&#x27;Geef je keuze of mening en onderbouw die met een reden.&#x27;,teacher:&#x27;Kun je een voorbeeld geven?&#x27;}
+    ];
+    const regularPrompts = [
+      {
+        ik:[&#x27;Vertel wat je vanmorgen hebt gedaan.&#x27;,&#x27;Kies iets waar je blij van wordt en vertel erover.&#x27;,&#x27;Hoe voel jij je vandaag? Vertel waarom.&#x27;],
+        dagelijks:[&#x27;Welke dag is het vandaag en wat ga je doen?&#x27;,&#x27;Kijk naar buiten: wat voor weer is het?&#x27;,&#x27;Wat heb je aan en welke kleur heeft het?&#x27;,&#x27;Wat heb je vandaag gegeten of gedronken?&#x27;,&#x27;Welk seizoen is het? Wat zie je buiten?&#x27;],
+        school:[&#x27;Wat zie je in de klas? Noem drie dingen.&#x27;,&#x27;Vertel wat je graag doet op school.&#x27;,&#x27;Wat gebeurde er vandaag in de kring?&#x27;],
+        fantasie:[&#x27;Je vindt een piepklein draakje. Wat gebeurt er?&#x27;,&#x27;Doe alsof je een dier bent. Welk dier ben je?&#x27;,&#x27;Vertel over een toverbal die van kleur verandert.&#x27;],
+        samen:[&#x27;Met wie speel je graag en wat doen jullie?&#x27;,&#x27;Vertel hoe je iemand kunt helpen.&#x27;,&#x27;Wat doe je als iemand verdrietig is?&#x27;]
+      },
+      {
+        ik:[&#x27;Leg uit hoe je je klaarmaakt voor school.&#x27;,&#x27;Hoe speel je jouw lievelingsspel? Leg het uit.&#x27;,&#x27;Vertel wat je goed kunt en hoe je dat hebt geleerd.&#x27;],
+        dagelijks:[&#x27;Leg uit welke kleren bij het weer van vandaag passen.&#x27;,&#x27;Vertel stap voor stap wat je vanmorgen hebt gedaan.&#x27;,&#x27;Wat heb je gegeten en hoe maak je dat klaar?&#x27;,&#x27;Wat heb je vandaag geleerd? Leg één ding uit.&#x27;],
+        school:[&#x27;Leg uit hoe je jouw tas opruimt.&#x27;,&#x27;Hoe los je een makkelijke som op?&#x27;,&#x27;Leg aan een nieuwe leerling uit hoe de pauze werkt.&#x27;],
+        fantasie:[&#x27;Hoe verzorg je een huisdraak? Leg het stap voor stap uit.&#x27;,&#x27;Bedenk een vliegmachine en leg uit hoe die werkt.&#x27;,&#x27;Hoe maak je een onzichtbaarheidsdrankje?&#x27;],
+        samen:[&#x27;Leg uit hoe je samen een spel kiest.&#x27;,&#x27;Wat doe je als twee kinderen hetzelfde speelgoed willen?&#x27;,&#x27;Hoe kun je een nieuwe leerling helpen?&#x27;]
+      },
+      {
+        ik:[&#x27;Vertel over een leuke dag met eerst, daarna en ten slotte.&#x27;,&#x27;Beschrijf een plek waar jij je fijn voelt en vertel waarom.&#x27;,&#x27;Vertel een gebeurtenis met een duidelijk begin, midden en einde.&#x27;],
+        dagelijks:[&#x27;Vertel over vandaag met eerst, daarna en straks.&#x27;,&#x27;Vergelijk het weer van vandaag met dat van gisteren.&#x27;,&#x27;Vertel wat je draagt en waarom dat bij dit seizoen past.&#x27;,&#x27;Vat samen wat je vandaag hebt geleerd.&#x27;],
+        school:[&#x27;Vertel stap voor stap hoe een schooldag verloopt.&#x27;,&#x27;Vat een tekst of verhaal uit de les kort samen.&#x27;,&#x27;Leg belangrijke informatie uit een opdracht duidelijk over.&#x27;],
+        fantasie:[&#x27;Vertel een verhaal over een deur die nergens naartoe lijkt te gaan.&#x27;,&#x27;Bedenk een avontuur en gebruik eerst, plotseling en uiteindelijk.&#x27;,&#x27;Vertel het nieuws uit een fantasieland in de juiste volgorde.&#x27;],
+        samen:[&#x27;Vertel hoe een ruzie begon, wat er gebeurde en hoe die eindigde.&#x27;,&#x27;Leg uit hoe jullie samen een taak hebben uitgevoerd.&#x27;,&#x27;Vertel een ervaring waarin iemand goed luisterde.&#x27;]
+      },
+      {
+        ik:[&#x27;Waar ben jij trots op? Geef een reden en een voorbeeld.&#x27;,&#x27;Welke hobby past het best bij jou? Onderbouw je keuze.&#x27;,&#x27;Wat zou jij graag willen leren? Leg uit waarom.&#x27;],
+        dagelijks:[&#x27;Welke maaltijd geeft jou de beste start van de dag? Onderbouw.&#x27;,&#x27;Wat is het fijnste seizoen? Geef twee argumenten.&#x27;,&#x27;Presenteer iets belangrijks dat je vandaag hebt geleerd.&#x27;,&#x27;Welke kleding past het best bij wisselvallig weer? Leg uit.&#x27;],
+        school:[&#x27;Welke les is volgens jou het belangrijkst? Geef twee redenen.&#x27;,&#x27;Presenteer in drie stappen iets nieuws dat je hebt geleerd.&#x27;,&#x27;Wat helpt jou om goed te leren? Onderbouw je antwoord.&#x27;],
+        fantasie:[&#x27;Presenteer een zelfbedachte uitvinding en vertel waarom die nuttig is.&#x27;,&#x27;Welk fantasiedier is het beste huisdier? Geef twee argumenten.&#x27;,&#x27;Overtuig de klas om jouw denkbeeldige eiland te bezoeken.&#x27;],
+        samen:[&#x27;Wat maakt iemand een goede vriend? Geef een voorbeeld.&#x27;,&#x27;Is samenwerken beter dan alleen werken? Onderbouw je mening.&#x27;,&#x27;Welke afspraak maakt een groep fijner? Leg uit waarom.&#x27;]
+      },
+      {
+        ik:[&#x27;Vat een ervaring samen in precies drie belangrijke punten.&#x27;,&#x27;Welke keuze heeft jou iets geleerd? Redeneer verder.&#x27;,&#x27;Presenteer een persoonlijk doel en leg uit hoe je het bereikt.&#x27;],
+        dagelijks:[&#x27;Vat je dag tot nu toe samen in drie kernpunten.&#x27;,&#x27;Leg uit hoe het seizoen invloed heeft op wat mensen doen.&#x27;,&#x27;Wat heb je deze week geleerd en hoe kun je het gebruiken?&#x27;,&#x27;Vergelijk twee maaltijden en leg uit welke keuze beter bij jou past.&#x27;],
+        school:[&#x27;Vat de kern van een les samen voor iemand die afwezig was.&#x27;,&#x27;Leg uit waarom fouten maken kan helpen bij leren.&#x27;,&#x27;Presenteer een oplossing voor een probleem in de klas.&#x27;],
+        fantasie:[&#x27;Vat een fantasieverhaal samen zonder belangrijke informatie te missen.&#x27;,&#x27;Wat zou er gebeuren als niemand meer hoefde te slapen? Redeneer door.&#x27;,&#x27;Presenteer een plan om een buitenaardse bezoeker welkom te heten.&#x27;],
+        samen:[&#x27;Vat de mening van je gesprekspartner samen en reageer erop.&#x27;,&#x27;Hoe kan één vriendelijke actie verder doorwerken?&#x27;,&#x27;Bedenk een oplossing waarbij twee verschillende wensen meetellen.&#x27;]
+      },
+      {
+        ik:[&#x27;Welke eigenschap is belangrijker: eerlijkheid of moed? Beargumenteer.&#x27;,&#x27;Is het goed om altijd je mening te zeggen? Bekijk beide kanten.&#x27;,&#x27;Luister naar een standpunt en formuleer een sterk tegenargument.&#x27;],
+        dagelijks:[&#x27;Stelling: slecht weer bestaat niet, alleen verkeerde kleding. Beargumenteer.&#x27;,&#x27;Moet iedereen elke dag ontbijten? Bespreek verschillende standpunten.&#x27;,&#x27;Welk seizoen heeft de meeste invloed op ons gedrag? Onderbouw.&#x27;,&#x27;Is elke dag iets nieuws leren belangrijker dan goed worden in één ding?&#x27;],
+        school:[&#x27;Moet huiswerk in de bovenbouw blijven bestaan? Geef argumenten voor en tegen.&#x27;,&#x27;Leren leerlingen meer van samenwerken of zelfstandig werken? Vergelijk.&#x27;,&#x27;Welke schoolregel verdient een kritische bespreking?&#x27;],
+        fantasie:[&#x27;Moeten robots dezelfde rechten krijgen als mensen? Beargumenteer.&#x27;,&#x27;Is reizen door de tijd een goed idee? Weeg voordelen en risico’s af.&#x27;,&#x27;Verdedig of bestrijd: iedereen zou één superkracht moeten krijgen.&#x27;],
+        samen:[&#x27;Moet de meerderheid altijd beslissen? Geef argumenten voor en tegen.&#x27;,&#x27;Wat weegt zwaarder: vrijheid of gelijke afspraken?&#x27;,&#x27;Vergelijk twee oplossingen voor een conflict en kies de sterkste.&#x27;]
+      },
+      {
+        ik:[&#x27;Overtuig je publiek van een verandering die jij belangrijk vindt en reflecteer op je aanpak.&#x27;,&#x27;Welke overtuiging van jou is ooit veranderd? Waardoor gebeurde dat?&#x27;,&#x27;Geef een standpunt, weerleg een tegenargument en evalueer je uitleg.&#x27;],
+        dagelijks:[&#x27;Debatteer: scholen moeten later beginnen. Gebruik je dagelijkse ervaring als bewijs.&#x27;,&#x27;In hoeverre bepaalt het weer hoe mensen zich voelen? Nuanceer je standpunt.&#x27;,&#x27;Welke dagelijkse gewoonte heeft de meeste invloed op leren? Beargumenteer.&#x27;,&#x27;Reflecteer op wat je vandaag hebt geleerd: wat veranderde in jouw denken?&#x27;],
+        school:[&#x27;Debatteer: cijfers motiveren leerlingen wel of niet. Reageer op een tegenargument.&#x27;,&#x27;Ontwerp de ideale schooldag, verdedig je keuzes en benoem een nadeel.&#x27;,&#x27;Welke rol moet technologie op school krijgen? Weeg belangen af.&#x27;],
+        fantasie:[&#x27;Debatteer: een perfecte wereld zonder risico’s is wenselijk.&#x27;,&#x27;Je klas mag één dag op een bijzondere plek les krijgen. Kies de plek, overtuig je klas en reageer op een bezwaar.&#x27;,&#x27;Als je het verleden kon veranderen, zou je dat moeten doen? Reflecteer.&#x27;],
+        samen:[&#x27;Is een compromis altijd de beste oplossing? Onderbouw en nuanceer.&#x27;,&#x27;Debatteer over vrijheid van meningsuiting en verantwoordelijkheid.&#x27;,&#x27;Reflecteer op een gesprek: wanneer veranderde jouw standpunt en waarom?&#x27;]
+      }
+    ];
+    const nt2Prompts = [
+      {ik:[&#x27;Kijk naar jezelf of je foto. Vertel: wie zie je? 👤&#x27;,&#x27;Kies iets dat bij jou hoort. Wat wil je erover zeggen? 🧸 ⚽ 🎨&#x27;,&#x27;Kijk naar de gezichten. Wat zie je? 🙂 😴 😮&#x27;,&#x27;Vertel jouw naam. De leerkracht modelt: “Ik ben …”&#x27;],dagelijks:[&#x27;Kijk naar de dagbeelden. Wat zie je? 🌅 🏫 🌙&#x27;,&#x27;Kijk naar buiten of naar de weerbeelden. Wat zie je? ☀️ 🌧️ 💨 ❄️&#x27;,&#x27;Kijk naar je kleding. Wat zie je? 👕 👖 👟 🧥&#x27;,&#x27;Kijk naar de afbeeldingen van eten. Wat zie je? 🍎 🥪 🍲 🥛&#x27;,&#x27;Kijk naar de seizoensbeelden. Wat valt je op? 🌷 ☀️ 🍂 ❄️&#x27;],school:[&#x27;Kijk rond in de klas. Wat zie je? 📚 ✏️ 🪑 🎒&#x27;,&#x27;Kies een voorwerp uit de klas. Wat kun je erover zeggen?&#x27;,&#x27;Kijk naar de plaat. Wat herken je van school? 🏫 🛝 📖&#x27;,&#x27;Wijs iets aan en benoem het. De leerkracht modelt: “Dat is een …”&#x27;],fantasie:[&#x27;Kijk naar de fantasiefiguren. Wat zie je? 🐉 🦄 👾&#x27;,&#x27;Kies een figuur. Wat valt je op? 🚀 🏰 🌟&#x27;,&#x27;Bekijk de plaat en benoem wat je herkent. 🌈 🪄 🌙&#x27;,&#x27;Beeld een fantasiefiguur uit en zeg er één woord bij.&#x27;],samen:[&#x27;Kijk naar de plaat van kinderen samen. Wat zie je? 🧒🏽 🧒🏼 🧒🏾&#x27;,&#x27;Kies iemand op de afbeelding. Wat doet die persoon? 🤝 🗣️ 👋&#x27;,&#x27;Kijk naar de gebaren. Wat herken je? 👋 👍 🙌&#x27;,&#x27;Wijs iets aan op de praatplaat en benoem het.&#x27;]},
+      {ik:[&#x27;Hoe oud ben je?&#x27;,&#x27;Welke kleding draag je?&#x27;,&#x27;Heb je een broer of zus?&#x27;],dagelijks:[&#x27;Vandaag is het … Maak de zin af.&#x27;,&#x27;Het weer is … Maak de zin af.&#x27;,&#x27;Ik draag een … en een …&#x27;,&#x27;Ik heb … gegeten.&#x27;,&#x27;In de winter/lente/zomer/herfst draag ik …&#x27;],school:[&#x27;Wat zit er in jouw tas?&#x27;,&#x27;Zeg: Ik heb een …&#x27;,&#x27;Wat heb je vandaag geleerd? Zeg één ding.&#x27;],fantasie:[&#x27;Ik zie een … Maak de zin af.&#x27;,&#x27;Welke kleur heeft jouw monster?&#x27;,&#x27;Kies: ik vlieg wel of niet.&#x27;],samen:[&#x27;Met wie speel je?&#x27;,&#x27;Zeg: Ik speel met …&#x27;,&#x27;Vraag: Hoe heet jij?&#x27;]},
+      {ik:[&#x27;Wat vind jij leuk? Vertel ook waarom.&#x27;,&#x27;Waar ga je graag naartoe?&#x27;,&#x27;Vertel wie er bij jou thuis wonen.&#x27;],dagelijks:[&#x27;Vertel welke dag het is en wat je vandaag doet.&#x27;,&#x27;Wat voor weer is het? Vind je dat fijn? Waarom?&#x27;,&#x27;Vertel wat je aan hebt en waarom.&#x27;,&#x27;Wat heb je gegeten? Vond je het lekker?&#x27;,&#x27;Wat heb je vandaag geleerd? Vertel iets over het onderwerp.&#x27;],school:[&#x27;Wat vind je leuk op school en waarom?&#x27;,&#x27;Waar gaat het verhaal over: wie, wat en waar?&#x27;,&#x27;Vertel wat je in de pauze doet.&#x27;],fantasie:[&#x27;Welk fantasiedier vind je leuk en waarom?&#x27;,&#x27;Waar gaat jouw raket naartoe?&#x27;,&#x27;Wie woont er in het kasteel?&#x27;],samen:[&#x27;Wat doe je graag met een vriend?&#x27;,&#x27;Wie helpt jou en waarmee?&#x27;,&#x27;Vertel waarom samen spelen leuk is.&#x27;]},
+      {ik:[&#x27;Vertel wat je gisteren deed: eerst en daarna.&#x27;,&#x27;Leg uit hoe jij je klaarmaakt.&#x27;,&#x27;Vertel een kort verhaal over jezelf.&#x27;],dagelijks:[&#x27;Vertel over je ochtend: eerst, daarna en toen.&#x27;,&#x27;Vergelijk het weer van vandaag en gisteren.&#x27;,&#x27;Leg uit waarom je deze kleding hebt gekozen.&#x27;,&#x27;Vertel hoe een maaltijd werd gemaakt.&#x27;,&#x27;Leg stap voor stap uit wat je vandaag hebt geleerd.&#x27;],school:[&#x27;Leg uit hoe een spel of opdracht werkt.&#x27;,&#x27;Vertel wat je eerst, daarna en als laatste doet.&#x27;,&#x27;Wat kun je vragen als je iets niet begrijpt?&#x27;],fantasie:[&#x27;Vertel een kort avontuur met eerst en daarna.&#x27;,&#x27;Leg uit hoe je een draak verzorgt.&#x27;,&#x27;Hoe werkt jouw fantasie-uitvinding?&#x27;],samen:[&#x27;Leg uit hoe je samen een spel kiest.&#x27;,&#x27;Vertel over een afspraak met een vriend.&#x27;,&#x27;Wat zeg je als je iemand niet begrijpt?&#x27;]},
+      {ik:[&#x27;Wat wil jij graag leren? Leg uit waarom.&#x27;,&#x27;Geef je mening over jouw ideale vrije dag.&#x27;,&#x27;Vertel iets uit het nieuws dat jij belangrijk vindt.&#x27;],dagelijks:[&#x27;Welk seizoen vind jij het fijnst? Geef twee redenen.&#x27;,&#x27;Welke kleding past volgens jou het best bij dit weer? Leg uit.&#x27;,&#x27;Welke maaltijd kies jij voor een schooldag en waarom?&#x27;,&#x27;Wat was het belangrijkste dat je vandaag hebt geleerd? Onderbouw.&#x27;,&#x27;Wat zou je morgen anders willen doen? Leg je keuze uit.&#x27;],school:[&#x27;Welke les vind je nuttig? Geef een reden.&#x27;,&#x27;Leg uit welke schoolregel jij zou kiezen.&#x27;,&#x27;Geef je mening over samenwerken.&#x27;],fantasie:[&#x27;Waar zou jij heen vliegen? Leg je keuze uit.&#x27;,&#x27;Is een draak een goed huisdier? Waarom wel of niet?&#x27;,&#x27;Overtuig iemand om jouw uitvinding te gebruiken.&#x27;],samen:[&#x27;Geef je mening: samen spelen is altijd leuk.&#x27;,&#x27;Wat wil jij veranderen in de groep? Leg uit.&#x27;,&#x27;Reageer op een andere mening met: Ik denk anders, omdat …&#x27;]}
+    ];
+    const listeners = [&#x27;Luister naar één belangrijk woord en gebruik dat in je reactie.&#x27;,&#x27;Vat na afloop in één zin samen wat je partner zei.&#x27;,&#x27;Stel één open vraag die begint met hoe, waarom of wat.&#x27;,&#x27;Noem eerst iets waarmee je het eens bent en reageer daarna.&#x27;];
+    const reflections = [&#x27;Wat ging goed bij het duidelijk vertellen?&#x27;,&#x27;Welk woord of welke zin van je gesprekspartner onthoud je?&#x27;,&#x27;Wanneer luisterde je echt goed? Hoe merkte je dat?&#x27;,&#x27;Welke startzin hielp jou vandaag het meest?&#x27;];
+    let round = 1, promptIndex = 0;
+
+    function levels(){ return $(&#x27;tp-route&#x27;).value === &#x27;nt2&#x27; ? nt2 : regular; }
+    function promptList(){
+      const levelIndex = Number($(&#x27;tp-level&#x27;).value || 0);
+      const bank = $(&#x27;tp-route&#x27;).value === &#x27;nt2&#x27; ? nt2Prompts : regularPrompts;
+      return bank[levelIndex][$(&#x27;tp-theme&#x27;).value];
+    }
+    function fillLevels(){
+      const items = levels();
+      $(&#x27;tp-level-label&#x27;).firstChild.textContent = $(&#x27;tp-route&#x27;).value === &#x27;nt2&#x27; ? &#x27;Fase &#x27; : &#x27;Groep &#x27;;
+      $(&#x27;tp-level&#x27;).innerHTML = items.map((x,i)=&gt;`&lt;option value=&quot;${i}&quot;&gt;${x.label}&lt;/option&gt;`).join(&#x27;&#x27;);
+      round = 1; render(true);
+    }
+    function render(fresh){
+      const item = levels()[Number($(&#x27;tp-level&#x27;).value || 0)];
+      const list = promptList();
+      if (fresh) promptIndex = Math.floor(Math.random()*list.length);
+      $(&#x27;tp-goal&#x27;).textContent = ladder[item.goal];
+      $(&#x27;tp-line&#x27;).textContent = ladder.join(&#x27; → &#x27;);
+      $(&#x27;tp-mode&#x27;).textContent = $(&#x27;tp-route&#x27;).value === &#x27;nt2&#x27; ? &#x27;NT2-praatkaart&#x27; : item.label;
+      $(&#x27;tp-round&#x27;).textContent = `Ronde ${round} van 3`;
+      $(&#x27;tp-prompt&#x27;).textContent = list[promptIndex % list.length];
+      $(&#x27;tp-starter&#x27;).textContent = item.starter;
+      $(&#x27;tp-tip&#x27;).textContent = item.tip;
+      $(&#x27;tp-teacher&#x27;).textContent = item.teacher;
+      const listenerTask = item.listener || listeners[(promptIndex + round) % listeners.length];
+      $(&#x27;tp-listener&#x27;).textContent = listenerTask;
+      $(&#x27;tp-listener-side&#x27;).textContent = listenerTask;
+      $(&#x27;tp-topic-icon&#x27;).textContent = {ik:&#x27;🌟&#x27;,dagelijks:&#x27;🌦️&#x27;,school:&#x27;🎒&#x27;,fantasie:&#x27;🚀&#x27;,samen:&#x27;🤝&#x27;}[$(&#x27;tp-theme&#x27;).value];
+      $(&#x27;tp-reflection&#x27;).textContent = reflections[(promptIndex + item.goal) % reflections.length];
+      $(&#x27;tp-reflect&#x27;).hidden = true;
+      $(&#x27;tp-progress&#x27;).innerHTML = ladder.map((_,i)=&gt;`&lt;span class=&quot;tp-dot ${i&lt;=item.goal?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;/span&gt;`).join(&#x27;&#x27;);
+    }
+    $(&#x27;tp-route&#x27;).addEventListener(&#x27;change&#x27;, fillLevels);
+    $(&#x27;tp-level&#x27;).addEventListener(&#x27;change&#x27;, ()=&gt;{round=1;render(false)});
+    $(&#x27;tp-theme&#x27;).addEventListener(&#x27;change&#x27;, ()=&gt;{round=1;render(true)});
+    $(&#x27;tp-next&#x27;).addEventListener(&#x27;click&#x27;, ()=&gt;{ round = round % 3 + 1; promptIndex++; render(false); });
+    $(&#x27;tp-reflect-btn&#x27;).addEventListener(&#x27;click&#x27;, ()=&gt;{ $(&#x27;tp-reflect&#x27;).hidden = !$(&#x27;tp-reflect&#x27;).hidden; });
+    fillLevels();
+  })();
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>

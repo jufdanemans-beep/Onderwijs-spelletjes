@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wie doet wat? - NT2-spel</title>
+<style>
+:root{--ink:#183153;--muted:#5d6b7d;--paper:#fffdf8;--blue:#dff3ff;--blue2:#2d7dd2;--yellow:#fff1ae;--green:#daf5df;--green2:#18864b;--red:#bd2c36;--shadow:0 12px 30px rgba(24,49,83,.12)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#eaf8ff,#fff9dd);color:var(--ink);font-family:Arial,"Segoe UI",sans-serif;min-height:100vh}
+button,select{font:inherit}.app{width:min(900px,100%);margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:10px}.brand-icon{font-size:2.3rem}.brand h1{font-size:clamp(1.5rem,5vw,2.25rem);margin:0}.score{background:var(--paper);border:2px solid #c8dae7;border-radius:18px;padding:10px 15px;font-weight:700;white-space:nowrap}.panel{background:var(--paper);border:2px solid #c8dae7;border-radius:24px;box-shadow:var(--shadow);padding:clamp(18px,4vw,32px)}
+.start{text-align:center}.start h2{font-size:1.5rem;margin-top:0}.start p{font-size:1.08rem;line-height:1.5}.settings{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:22px 0}.field{text-align:left}.field label{display:block;font-weight:700;margin:0 0 5px}.field select{min-width:160px;padding:10px;border:2px solid #9bbbd0;border-radius:12px;background:white;color:var(--ink)}
+.primary,.secondary,.choice{border:0;border-radius:14px;cursor:pointer;font-weight:700}.primary{padding:13px 22px;color:white;background:var(--blue2);box-shadow:0 4px 0 #185da2}.secondary{padding:10px 14px;color:var(--ink);background:var(--blue);border:2px solid #9bcce9}.primary:active{transform:translateY(2px);box-shadow:0 2px 0 #185da2}button:focus-visible,select:focus-visible{outline:4px solid #ffbc42;outline-offset:3px}
+.game{display:none}.progress-row{display:flex;justify-content:space-between;gap:12px;font-weight:700;color:var(--muted)}.progress{height:12px;background:#e6edf2;border-radius:20px;overflow:hidden;margin:8px 0 22px}.bar{height:100%;width:0;background:var(--green2);transition:width .3s}.prompt-label{text-align:center;color:var(--muted);font-weight:700;margin-bottom:8px}.sentence{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:stretch;margin-bottom:18px}.word-card{min-height:118px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-radius:18px;padding:12px;background:#f4f7fa;border:3px solid transparent}.word-card.wie{background:var(--blue)}.word-card.doet{background:var(--yellow)}.word-card.wat{background:var(--green)}.word-card.missing{border:3px dashed #78899a;background:white;color:var(--muted)}.emoji{font-size:2.4rem;line-height:1.15}.word{font-size:clamp(1rem,3.5vw,1.3rem);font-weight:700;margin-top:7px}.tag{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:4px}
+.listen-row{text-align:center;margin:8px 0 18px}.choices{display:grid;gap:12px}.choices[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}.choices[data-count="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}.choice{position:relative;min-width:0;min-height:112px;padding:12px;background:white;border:3px solid #9bbbd0;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 0 #9bbbd0}.choice-number{position:absolute;top:6px;left:8px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--blue2);color:white;font-weight:700}.choice:hover{background:#eff9ff}.choice.correct{background:var(--green);border-color:var(--green2);box-shadow:0 4px 0 var(--green2)}.choice.wrong{background:#ffe1e3;border-color:var(--red);box-shadow:0 4px 0 var(--red)}.choice:disabled{cursor:default}.feedback{min-height:58px;text-align:center;font-size:1.14rem;font-weight:700;padding-top:14px}.feedback.good{color:var(--green2)}.feedback.bad{color:var(--red)}.actions{display:flex;justify-content:center;gap:10px;min-height:50px}.end{display:none;text-align:center}.end .big{font-size:4rem}.end h2{font-size:1.8rem}.stars{font-size:2.4rem;letter-spacing:6px}.note{font-size:.9rem;color:var(--muted);margin-top:22px}
+@media(max-width:600px){.app{padding:10px}.top{align-items:flex-start}.score{padding:8px 10px}.sentence{gap:6px}.word-card{min-height:102px;padding:7px}.choices{gap:6px}.choice{min-height:100px;padding:8px 4px}.choice .word{overflow-wrap:anywhere;font-size:.92rem}.choice-number{width:21px;height:21px;top:4px;left:4px}.emoji{font-size:1.75rem}.panel{border-radius:18px;padding:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top"><div class="brand"><span class="brand-icon">🧩</span><h1>Wie doet wat?</h1></div><div class="score" aria-live="polite">⭐ <span id="score">0</span></div></header>
+  <section id="start" class="panel start">
+    <h2>Maak de zin compleet</h2>
+    <p>Kijk, lees en kies het goede woord. Je oefent met <strong>Wie?</strong>, <strong>Doet?</strong> en <strong>Wat?</strong>.</p>
+    <div class="settings">
+      <div class="field"><label for="level">Niveau</label><select id="level"><option value="easy">Start - 2 keuzes</option><option value="standard" selected>Basis - 3 keuzes</option></select></div>
+      <div class="field"><label for="roundCount">Aantal vragen</label><select id="roundCount"><option>5</option><option selected>10</option><option>15</option></select></div>
+    </div>
+    <button id="startBtn" class="primary">Start het spel</button>
+    <p class="note">Tip voor de leerkracht: laat de leerling na elk antwoord de hele zin hardop zeggen.</p>
+  </section>
+  <section id="game" class="panel game" aria-labelledby="instruction">
+    <div class="progress-row"><span id="roundLabel">Vraag 1 van 10</span><span id="streak">Reeks: 0</span></div>
+    <div class="progress"><div id="bar" class="bar"></div></div>
+    <div id="instruction" class="prompt-label">Welk woord hoort op de lege plek?</div>
+    <div id="sentence" class="sentence"></div>
+    <div class="listen-row"><button id="listenBtn" class="secondary">🔊 Luister naar de zin</button></div>
+    <div id="choices" class="choices"></div>
+    <div id="feedback" class="feedback" aria-live="assertive"></div>
+    <div class="actions"><button id="nextBtn" class="primary" hidden>Volgende vraag</button></div>
+  </section>
+  <section id="end" class="panel end">
+    <div class="big">🏆</div><h2>Goed geoefend!</h2><div id="stars" class="stars"></div><p id="result"></p>
+    <button id="againBtn" class="primary">Nog een keer</button>
+  </section>
+</main>
+<script>
+const rounds=[
+ {who:['de bakker','👩‍🍳'],does:['bakt','🥣'],what:['het brood','🍞']},
+ {who:['de slager','🧑‍🍳'],does:['snijdt','🔪'],what:['de worst','🌭']},
+ {who:['de ober','🧑‍💼'],does:['brengt','🤲'],what:['het bord','🍽️']},
+ {who:['de piloot','🧑‍✈️'],does:['vliegt met','✈️'],what:['het vliegtuig','🛫']},
+ {who:['de dokter','🧑‍⚕️'],does:['helpt','🩺'],what:['het kind','🧒']},
+ {who:['de winkelier','🧑‍🏪'],does:['verkoopt','🛒'],what:['de taart','🎂']},
+ {who:['de buschauffeur','🧑‍✈️'],does:['rijdt met','🚌'],what:['de bus','🚌']},
+ {who:['de dierenarts','🧑‍⚕️'],does:['onderzoekt','🔎'],what:['de hond','🐕']},
+ {who:['de timmerman','👷'],does:['bouwt','🔨'],what:['de kast','🗄️']},
+ {who:['de kapper','💇'],does:['knipt','✂️'],what:['het haar','💇']},
+ {who:['de brandweerman','🧑‍🚒'],does:['blust','🧯'],what:['het vuur','🔥']},
+ {who:['de kassier','🧑‍💼'],does:['neemt','🤲'],what:['het geld','💶']},
+ {who:['de fietser','🚴'],does:['rijdt op','🚲'],what:['de fiets','🚲']},
+ {who:['de leerling','🧑‍🎓'],does:['draagt','🎒'],what:['de boekentas','🎒']},
+ {who:['de kinderen','👧🧒'],does:['springen op','🤸'],what:['de trampoline','🟦']},
+ {who:['de baby','👶'],does:['drinkt uit','🥤'],what:['het kopje','☕']},
+ {who:['de vogel','🐦'],does:['eet','😋'],what:['de vlieg','🪰']},
+ {who:['de toerist','🧳'],does:['kijkt naar','👀'],what:['de giraf','🦒']}
+];
+const categories=[['who','Wie?'],['does','Doet?'],['what','Wat?']];
+let queue=[],index=0,score=0,streak=0,answered=false,total=10,dutchVoice=null,selectedLevel='standard';
+const $=id=>document.getElementById(id);
+function selectDutchVoice(){
+ const voices=speechSynthesis.getVoices();
+ dutchVoice=voices.find(v=>v.lang.toLowerCase()==='nl-nl')
+   ||voices.find(v=>v.lang.toLowerCase()==='nl-be')
+   ||voices.find(v=>v.lang.toLowerCase().startsWith('nl'))
+   ||voices.find(v=>/dutch|nederlands/i.test(v.name))
+   ||null;
+}
+if('speechSynthesis'in window){selectDutchVoice();speechSynthesis.addEventListener('voiceschanged',selectDutchVoice)}
+function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
+function start(){selectedLevel=$('level').value;total=+$('roundCount').value;queue=shuffled(rounds).slice(0,total).map((r,i)=>({...r,missing:categories[i%3][0]}));index=score=streak=0;$('score').textContent=0;$('start').style.display='none';$('end').style.display='none';$('game').style.display='block';showRound()}
+function card(key,data,missing){const labels={who:'Wie?',does:'Doet?',what:'Wat?'};return `<div class="word-card ${missing?'missing':key}"><span class="tag">${labels[key]}</span>${missing?'<span class="emoji">❓</span><span class="word">...</span>':`<span class="emoji">${data[1]}</span><span class="word">${data[0]}</span>`}</div>`}
+function showRound(){answered=false;const r=queue[index];const n=selectedLevel==='easy'?2:3;const levelName=selectedLevel==='easy'?'Start':'Basis';$('roundLabel').textContent=`${levelName} - ${n} keuzes | Vraag ${index+1} van ${total}`;$('instruction').textContent=`Welk woord hoort op de lege plek? Kies uit ${n} antwoorden.`;$('streak').textContent=`Reeks: ${streak}`;$('bar').style.width=`${index/total*100}%`;$('feedback').textContent='';$('feedback').className='feedback';$('nextBtn').hidden=true;$('sentence').innerHTML=['who','does','what'].map(k=>card(k,r[k],k===r.missing)).join('');
+ const correct=r[r.missing][0];let pool=shuffled(rounds.filter(x=>x[r.missing][0]!==correct)).slice(0,n-1).map(x=>x[r.missing]);const opts=shuffled([r[r.missing],...pool]);$('choices').innerHTML='';$('choices').dataset.count=String(n);opts.forEach((o,i)=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`<span class="choice-number">${i+1}</span><span class="emoji">${o[1]}</span><span class="word">${o[0]}</span>`;b.addEventListener('click',()=>answer(b,o[0]===correct));$('choices').appendChild(b)});}
+function answer(btn,ok){if(answered)return;answered=true;document.querySelectorAll('.choice').forEach(b=>b.disabled=true);const r=queue[index],correct=r[r.missing][0];if(ok){btn.classList.add('correct');score++;streak++;$('feedback').textContent='Goed! Zeg de hele zin hardop.';$('feedback').classList.add('good')}else{btn.classList.add('wrong');streak=0;[...document.querySelectorAll('.choice')].find(b=>b.textContent.includes(correct))?.classList.add('correct');$('feedback').textContent=`Bijna! Het goede antwoord is: ${correct}.`;$('feedback').classList.add('bad')}$('score').textContent=score;$('streak').textContent=`Reeks: ${streak}`;speak(fullSentence(r));$('nextBtn').hidden=false;$('nextBtn').focus()}
+function fullSentence(r){return `${r.who[0]} ${r.does[0]} ${r.what[0]}.`}
+function speak(text){
+ if(!('speechSynthesis'in window)){alert('Deze browser heeft geen voorleesfunctie.');return}
+ selectDutchVoice();
+ if(!dutchVoice){alert('Er is geen Nederlandse stem beschikbaar in deze browser. Installeer een Nederlandse stem op het apparaat of open het spel in Microsoft Edge.');return}
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ u.voice=dutchVoice;
+ u.lang=dutchVoice.lang;
+ u.rate=.82;
+ u.pitch=1;
+ speechSynthesis.speak(u);
+}
+function next(){index++;if(index>=total){finish()}else showRound()}
+function finish(){$('game').style.display='none';$('end').style.display='block';$('bar').style.width='100%';const pct=score/total;$('stars').textContent=pct>=.9?'⭐⭐⭐':pct>=.6?'⭐⭐':'⭐';$('result').textContent=`Je had ${score} van de ${total} vragen goed.`}
+$('startBtn').addEventListener('click',start);$('nextBtn').addEventListener('click',next);$('againBtn').addEventListener('click',()=>{$('end').style.display='none';$('start').style.display='block'});$('listenBtn').addEventListener('click',()=>speak(fullSentence(queue[index])));
+</script>
+</body>
+</html>

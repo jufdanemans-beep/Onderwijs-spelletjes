@@ -54,19 +54,26 @@
     font-size: 1rem;
   }
 
-  /* Vijf kolommen naast elkaar, die op smalle schermen automatisch onder elkaar vallen */
 .columns {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 20px;
   align-items: start;
 }
 
-  @media (max-width: 700px) {
-    .columns {
-      grid-template-columns: 1fr;
-    }
+/* Tablet */
+@media (max-width: 850px) {
+  .columns {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Telefoon */
+@media (max-width: 550px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
 
 .column h2 {
   font-size: 1.1rem;

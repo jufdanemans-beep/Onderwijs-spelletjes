@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Krekel of kikker? | Klankgroepen oefenen</title>
+  <style>
+    :root{--ink:#193f38;--green:#216657;--orange:#d35435;--lime:#dff4c3;--sun:#ffe27a;--peach:#ffd2be;--cream:#fffaf0;--muted:#55736c}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;padding:28px 18px;color:var(--ink);font-family:Arial,sans-serif;background-color:#f2eddf;background-image:radial-gradient(circle at 8% 10%,#ffe27a55 0 120px,transparent 121px),radial-gradient(circle at 92% 85%,#a8db6748 0 170px,transparent 171px),linear-gradient(#193f3809 1px,transparent 1px),linear-gradient(90deg,#193f3809 1px,transparent 1px);background-size:auto,auto,28px 28px,28px 28px}
+    button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}.wrap{max-width:1000px;margin:auto}.panel{border:2px solid var(--ink);border-radius:30px;background:var(--cream);box-shadow:0 6px 0 var(--ink)}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:12px 20px}.brand{display:flex;align-items:center;gap:12px}.frog{display:grid;place-items:center;width:44px;height:44px;border-radius:16px;background:#a8db67;font-size:25px}.eyebrow{margin:0;color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}h1{margin:2px 0 0;font-size:21px}.score{display:flex;gap:7px;align-items:center;border-radius:999px;background:var(--sun);padding:10px 14px;font-weight:900}
+    .layout{display:grid;grid-template-columns:280px 1fr;gap:20px}.rules{padding:20px;background:var(--lime)}.rules h2{margin:0 0 14px;font-size:18px}.rule{margin-top:12px;padding:16px;border-radius:16px;background:#ffffffc7;font-size:14px;line-height:1.45}.rule b{display:block;margin-bottom:4px;font-size:17px}.rule p{margin:0}.tipbox{margin-top:16px;padding:12px;border:2px dashed #5a8b66;border-radius:16px;text-align:center;font-size:12px;font-weight:900}
+    .game{display:flex;min-height:510px;flex-direction:column;padding:30px}.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}.track{height:12px;flex:1;overflow:hidden;border-radius:99px;background:#e4dfd2}.bar{height:100%;width:0;border-radius:99px;background:#63ad62;transition:width .25s}.counter{font-size:14px;font-weight:900}.modes{display:flex;justify-content:center;gap:8px;margin:0 auto 24px;padding:5px;border-radius:16px;background:#e8e2d5}.mode{border:0;border-radius:12px;background:transparent;padding:9px 14px;color:var(--muted);font-size:13px;font-weight:900}.mode.active{background:white;color:var(--green);box-shadow:0 2px 0 #b8b1a5}.center{text-align:center}.parts{display:flex;align-items:center;justify-content:center;gap:9px;margin:22px 0;font-size:46px;font-weight:900}.part{padding:10px 16px;border-radius:16px;background:var(--sun)}.part:last-child{background:var(--peach)}.dot{color:var(--orange)}.clue{max-width:540px;margin:22px auto 6px;padding:22px;border:2px dashed #86a099;border-radius:18px;background:white;font-size:23px;font-weight:800;line-height:1.35}.blank{display:inline-block;min-width:100px;border-bottom:4px solid var(--green);color:transparent}
+    .next,.restart{border:0;border-radius:14px;font-weight:900}.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:580px;margin:32px auto 0}.answer{min-height:80px;padding:14px;border:2px solid var(--ink);border-radius:16px;background:white;box-shadow:0 4px 0 var(--ink);font-size:24px;font-weight:900;transition:.15s}.answer:hover:not(:disabled){transform:translateY(-3px);background:#fff4cf}.answer:focus-visible{outline:4px solid #85c8bc;outline-offset:2px}.answer.correct{border-color:var(--green);background:#c9edab;box-shadow:0 4px 0 var(--green)}.answer.wrong{border-color:#b74731;background:#ffd2c8;box-shadow:0 4px 0 #b74731}
+    .feedback-area{margin-top:auto;padding-top:28px}.hint{text-align:center;color:var(--muted);font-size:14px;font-weight:700}.feedback{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px;border-radius:16px;background:var(--lime)}.feedback.bad{background:#ffe0d6}.feedback h3,.feedback p{margin:0}.feedback p{margin-top:3px;font-size:14px}.next,.restart{padding:14px 24px;background:var(--green);color:white}.finish{margin:auto;text-align:center}.trophy{display:grid;place-items:center;width:96px;height:96px;margin:0 auto 20px;border-radius:50%;background:var(--sun);font-size:50px}.finish h2{margin:8px 0;font-size:38px}.finish p{max-width:400px;color:var(--muted);font-weight:700}.restart{margin-top:18px}
+    @media(max-width:760px){body{padding:18px 12px}.layout{grid-template-columns:1fr}.rules{order:2}.game{min-height:530px;padding:22px 16px}.parts{font-size:36px}.choices{grid-template-columns:1fr}.feedback{align-items:stretch;flex-direction:column}.next{width:100%}}
+    @media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="panel"><div class="brand"><div class="frog" aria-hidden="true">🐸</div><div><p class="eyebrow">Klankkampioen</p><h1>Krekel of kikker?</h1></div></div><div class="score" aria-label="Punten">⭐ <span id="score">0</span></div></header>
+    <div class="layout">
+      <aside class="rules panel"><h2>💡 Zo werkt de regel</h2><div class="rule"><b style="color:var(--green)">Krekel = 1 klinker</b><p>Hoor je aan het eind van de eerste klankgroep een lange klank? Schrijf <strong>één klinkerteken</strong>: kre-kel.</p></div><div class="rule"><b style="color:var(--orange)">Kikker = dubbel</b><p>Hoor je een korte klank? Schrijf de volgende <strong>medeklinker twee keer</strong>: kik-ker.</p></div><div class="tipbox">Hak het woord. Luister. Kies!</div></aside>
+      <section class="game panel" id="game"></section>
+    </div>
+  </main>
+  <script>
+    const bank=[
+      [['kik','ker'],['kiker','kikker'],1,'korte i'],[['kre','kel'],['krekel','krekell'],0,'lange ee'],[['ram','men'],['ramen','rammen'],1,'korte a'],[['ra','men'],['ramen','rammen'],0,'lange aa'],[['bot','ten'],['boten','botten'],1,'korte o'],[['bo','ten'],['boten','botten'],0,'lange oo'],[['zak','ken'],['zaken','zakken'],1,'korte a'],[['za','ken'],['zaken','zakken'],0,'lange aa'],[['bom','men'],['bomen','bommen'],1,'korte o'],[['bo','men'],['bomen','bommen'],0,'lange oo'],[['kat','ten'],['katen','katten'],1,'korte a'],[['vis','sen'],['visen','vissen'],1,'korte i'],[['bel','len'],['belen','bellen'],1,'korte e'],[['mus','sen'],['musen','mussen'],1,'korte u'],[['pen','nen'],['penen','pennen'],1,'korte e'],[['kip','pen'],['kipen','kippen'],1,'korte i'],[['ta','fel'],['tafel','taffel'],0,'lange aa'],[['le','pel'],['lepel','leppel'],0,'lange ee'],[['bu','ren'],['buren','burren'],0,'lange uu'],[['we','ken'],['weken','wekken'],0,'lange ee'],[['do','zen'],['dozen','dozzen'],0,'lange oo'],[['o','gen'],['ogen','oggen'],0,'lange oo']
+    ];
+    const clues=['Op het blad zit een ___.','De groene ___ springt in de vijver.','De schapen ___ tegen het hek.','Het huis heeft grote ___.','De hond knaagt aan de ___.','Op het water varen twee ___.','De boodschappen zitten in ___.','Mijn ouders regelen hun ___.','In de verte ontploffen ___.','In het park staan hoge ___.','De zwarte ___ slapen op de bank.','In de vijver zwemmen ___.','Wij ___ bij de voordeur.','In de tuin lopen kleine ___.','Ik schrijf met blauwe ___.','De boer heeft veel ___.','Het boek ligt op de ___.','Ik eet soep met een ___.','Onze ___ wonen naast ons.','Wij zijn drie ___ op vakantie.','De glazen staan in ___.','Met je ___ kun je kijken.'];
+    let round=shuffle(),index=0,score=0,choice=null,mode='help';
+    const game=document.getElementById('game'),scoreEl=document.getElementById('score');
+    function shuffle(){return [...bank].sort(()=>Math.random()-.5).slice(0,10)}
+    function render(){
+      const w=round[index],progress=((index+(choice===null?0:1))/round.length)*100;
+      const clue=clues[bank.indexOf(w)];
+      const prompt=mode==='help'?`<div class="parts"><span class="part">${w[0][0]}</span><span class="dot">·</span><span class="part">${w[0][1]}</span></div>`:`<div class="clue">${clue.replace('___','<span class="blank">woord</span>')}</div>`;
+      game.innerHTML=`<div class="progress-row"><div class="track" aria-label="Voortgang"><div class="bar" style="width:${progress}%"></div></div><span class="counter">${index+1} / ${round.length}</span></div><div class="modes" aria-label="Kies een niveau"><button class="mode ${mode==='help'?'active':''}" onclick="setMode('help')">Met hulp</button><button class="mode ${mode==='solo'?'active':''}" onclick="setMode('solo')">Zonder hulp</button></div><div class="center"><p class="eyebrow">Welk woord is goed geschreven?</p>${prompt}</div><div class="choices">${w[1].map((x,i)=>`<button class="answer" onclick="answer(${i})">${x}</button>`).join('')}</div><div class="feedback-area"><p class="hint">${mode==='help'?'De klankgroepen helpen je bij het kiezen.':'Pas de krekel- of kikkerregel zelf toe.'}</p></div>`;
+    }
+    function setMode(nextMode){if(choice!==null)return;mode=nextMode;render()}
+    function answer(i){
+      if(choice!==null)return;choice=i;const w=round[index],right=i===w[2];if(right){score++;scoreEl.textContent=score}
+      document.querySelectorAll('.answer').forEach((b,n)=>{b.disabled=true;if(n===w[2])b.classList.add('correct');else if(n===i)b.classList.add('wrong')});
+      document.querySelector('.bar').style.width=((index+1)/round.length*100)+'%';
+      document.querySelector('.feedback-area').innerHTML=`<div class="feedback ${right?'':'bad'}"><div><h3>${right?'Ja, helemaal goed!':'Bijna! Het is '+w[1][w[2]]+'.'}</h3><p>Je hoort een <strong>${w[3]}</strong>.</p></div><button class="next" onclick="next()">Volgende →</button></div>`;
+    }
+    function next(){if(index===round.length-1)finish();else{index++;choice=null;render()}}
+    function finish(){game.innerHTML=`<div class="finish"><div class="trophy">🏆</div><p class="eyebrow">Ronde klaar!</p><h2>${score} van ${round.length} goed</h2><p>${score>=8?'Wat knap! Jij hoort korte en lange klanken heel goed.':'Goed geoefend! Nog een rondje en je wordt steeds sneller.'}</p><button class="restart" onclick="restart()">↻ Nog een keer</button></div>`}
+    function restart(){round=shuffle();index=0;score=0;choice=null;scoreEl.textContent=0;render()}
+    render();
+  </script>
+</body>
+</html>

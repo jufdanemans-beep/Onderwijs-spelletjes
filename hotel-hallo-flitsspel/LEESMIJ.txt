@@ -1,1 +1,1 @@
-
+Upload alle bestanden uit deze map samen naar dezelfde map in je GitHub-repository. Open daarna index.html via GitHub Pages. Verander de bestandsnamen niet.

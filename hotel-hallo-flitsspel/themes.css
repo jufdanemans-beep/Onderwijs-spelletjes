@@ -1,0 +1,34 @@
+.theme-choices {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.theme-choices button {
+  min-height: 48px;
+  border: 2px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 900;
+  cursor: pointer;
+}
+.theme-choices button.selected {
+  border-color: var(--pink);
+  background: #fff0f7;
+  color: #b50063;
+  box-shadow: 0 0 0 2px #ffd0e7;
+}
+.theme-choices button.mix {
+  grid-column: span 2;
+  background: #f3fbfd;
+}
+.theme-info {
+  margin: 10px 2px 0;
+  color: #4d6478;
+  font-size: .95rem;
+  font-weight: 700;
+}
+@media (max-width: 620px) {
+  .theme-choices { grid-template-columns: repeat(4, 1fr); }
+  .theme-choices button.mix { grid-column: span 2; }
+}

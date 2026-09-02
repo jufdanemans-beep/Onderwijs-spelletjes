@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="NT2-flitsspel met 422 woorden uit de tien thema's van Hotel Hallo">
+  <title>Hotel Hallo - Flitsspel</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="themes.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="hotel-mark" aria-hidden="true">H</div>
+      <div><p class="eyebrow">HOTEL HALLO · 10 THEMA'S</p><h1>Flitsspel</h1></div>
+      <button id="soundBtn" class="icon-btn" aria-label="Geluid aan of uit" aria-pressed="true">🔊</button>
+    </header>
+
+    <section id="setup" class="panel setup">
+      <div>
+        <p class="step">1. Kies de woorden</p>
+        <div id="themeChoices" class="theme-choices" role="group" aria-label="Kies een thema"></div>
+        <p id="themeInfo" class="theme-info"></p>
+      </div>
+      <div>
+        <p class="step">2. Kies een spel</p>
+        <div class="choices mode-choices">
+          <button class="choice selected" data-mode="choose"><span>👀</span><b>Kijk & kies</b><small>De afbeelding verdwijnt. Kies het woord.</small></button>
+          <button class="choice" data-mode="say"><span>🗣️</span><b>Kijk & zeg</b><small>Zeg het woord hardop en draai de kaart om.</small></button>
+        </div>
+      </div>
+      <div>
+        <p class="step">3. Hoe snel?</p>
+        <div class="speed" role="group" aria-label="Flitstijd">
+          <button data-speed="2">2 sec</button><button class="selected" data-speed="4">4 sec</button><button data-speed="6">6 sec</button>
+        </div>
+      </div>
+      <button id="startBtn" class="primary">Start met flitsen <span>→</span></button>
+    </section>
+
+    <section id="game" class="panel game hidden" aria-live="polite">
+      <div class="topline"><span id="round">Kaart 1 van 11</span><span id="score">0 goed</span></div>
+      <div class="progress"><i id="progressBar"></i></div>
+      <div id="flashCard" class="flash-card">
+        <div id="timer" class="timer">4</div>
+        <img id="wordImage" src="" alt="">
+        <div id="cover" class="cover hidden"><span>?</span><p>Welke afbeelding zag je?</p></div>
+      </div>
+      <div id="answerArea" class="answer-area"></div>
+      <button id="revealBtn" class="primary hidden">Draai de kaart om</button>
+      <button id="nextBtn" class="primary hidden">Volgende kaart <span>→</span></button>
+    </section>
+
+    <section id="finish" class="panel finish hidden">
+      <div class="confetti">★ · ★ · ★</div><p class="eyebrow">RONDE KLAAR</p><h2 id="finalTitle">Heel goed!</h2>
+      <p id="finalScore"></p><button id="againBtn" class="primary">Nog een keer</button><button id="backBtn" class="text-btn">Ander spel kiezen</button>
+    </section>
+  </main>
+  <script src="thema-1.js"></script>
+  <script src="thema-2.js"></script>
+  <script src="thema-3.js"></script>
+  <script src="thema-4.js"></script>
+  <script src="thema-5.js"></script>
+  <script src="thema-6.js"></script>
+  <script src="thema-7.js"></script>
+  <script src="thema-8.js"></script>
+  <script src="thema-9.js"></script>
+  <script src="thema-10.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

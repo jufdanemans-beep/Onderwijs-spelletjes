@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Wie · Wat · Waar?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+:root{font-family:Montserrat,Arial,sans-serif;color:#2d2926;background:#fff9f2}*{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:24px}h1{text-align:center;font-size:clamp(2.2rem,6vw,4.2rem);margin:15px 0 4px;color:#3e4836}h1 span{color:#ef6549}.intro{text-align:center;margin:0 0 25px}.toolbar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}button{font:inherit;font-weight:800;background:#ffe287;border:0;border-radius:14px;padding:13px 20px;cursor:pointer;box-shadow:0 4px #d9a749}button:hover{filter:brightness(.97)}button:active{transform:translateY(3px);box-shadow:0 1px #d9a749}.print{background:#e3efe3;box-shadow:0 4px #aec8ae}.answer{display:none;text-align:center;border:3px solid #e6a963;background:white;border-radius:18px;padding:20px;font-size:1.18rem;line-height:1.65;margin-bottom:25px}.answer.show{display:block}.answer strong{color:#a4493c}.grid-wrap{overflow-x:auto;border-radius:15px;box-shadow:0 5px 20px #8e755d25}.grid{display:grid;grid-template-columns:88px repeat(3,minmax(170px,1fr));min-width:675px;background:#514e45;gap:2px;border:2px solid #514e45}.cell{background:#fff;padding:15px 11px;display:flex;align-items:center;justify-content:center;text-align:center;min-height:114px;line-height:1.4}.head{min-height:68px;background:#fce8b9;font-size:1.45rem;font-weight:800}.die{font-size:3.4rem;color:#e35e43;background:#fffefa}.entry{flex-direction:column;gap:5px}.entry .icon{font-size:2.4rem;line-height:1.1}.entry.selected{background:#fff0bf;box-shadow:inset 0 0 0 4px #f2a43c}.footer{text-align:center;margin:25px 0;font-size:1.3rem;font-weight:700}.footer span{color:#d95e51}@media print{body{background:white}main{max-width:none;padding:5px}.toolbar,.answer{display:none!important}.grid-wrap{box-shadow:none}.grid{min-width:0;grid-template-columns:65px repeat(3,1fr)}.cell{min-height:105px;padding:8px}.head{min-height:52px}h1{margin-top:0}}
+</style></head><body><main><h1>Wie <span>·</span> wat <span>·</span> waar?</h1><p class="intro">Gooi apart voor wie, wat en waar. Maak daarna jouw fantasieverhaal!</p><div class="toolbar"><button data-roll="0">🎲 Gooi: wie?</button><button data-roll="1">🎲 Gooi: wat?</button><button data-roll="2">🎲 Gooi: waar?</button></div><div id="answer" class="answer" aria-live="polite"></div><div class="grid-wrap"><div class="grid" id="grid"><div class="cell head">🎲</div><div class="cell head">Wie?</div><div class="cell head">Wat?</div><div class="cell head">Waar?</div></div></div><p class="footer">✨ Vertel, schrijf of teken <span>jouw verhaal!</span> ✨</p></main>
+<script>
+const data=[
+ [['👑','de hartenkoningin'],['🌼','plukt een gevaarlijke bloem'],['🍔','in het hamburgerrestaurant']],
+ [['🐭','een lief klein muisje'],['🍭','eet te veel van de suikerspin'],['🍬','in het snoephuisje']],
+ [['👩‍🦰','een meisje met heel lang rood haar'],['🫘','vindt magische bonen'],['🛏️','op een bed met heel veel matrassen']],
+ [['🐄','een dikke koe'],['🧦','verliest zijn sokken'],['🌧️','tijdens een regenbui']],
+ [['🏴‍☠️','een piraat met een houten arm'],['🐠','koopt twee betoverde visjes'],['🌲','in een groot donker bos']],
+ [['🧜‍♀️','een meermin met een bril'],['🎈','krijgt drie ballonnen waarmee je kunt vliegen'],['🎠','met een roze betoverde koets']]
+];
+const faces=['⚀','⚁','⚂','⚃','⚄','⚅'],grid=document.getElementById('grid');
+data.forEach((row,i)=>{const d=document.createElement('div');d.className='cell die';d.textContent=faces[i];d.setAttribute('aria-label',`Dobbelsteen ${i+1}`);grid.append(d);row.forEach(([icon,words],j)=>{const c=document.createElement('div');c.className='cell entry';c.dataset.row=i;c.dataset.col=j;const e=document.createElement('span');e.className='icon';e.textContent=icon;const t=document.createElement('span');t.textContent=words;c.append(e,t);grid.append(c)})});
+const rolls=[null,null,null];
+document.querySelectorAll('[data-roll]').forEach(button=>button.addEventListener('click',()=>{
+ const col=Number(button.dataset.roll);rolls[col]=Math.floor(Math.random()*6);
+ document.querySelectorAll('.entry').forEach(c=>c.classList.toggle('selected',rolls[Number(c.dataset.col)]===Number(c.dataset.row)));
+ const box=document.getElementById('answer');box.classList.add('show');
+ box.innerHTML='<strong>Jouw verhaal:</strong><br>'+rolls.map((n,i)=>['Wie','Wat','Waar'][i]+': '+(n===null?'nog gooien':faces[n]+' '+data[n][i][1])).join('<br>');
+}));
+</script></body></html>

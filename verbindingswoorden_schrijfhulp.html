@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Verbindingswoorden – Schrijfhulp bovenbouw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#263238; --paper:#fffdfb; --pink:#f7b8cb; --yellow:#f8dc78; --green:#aee8b8;
+  --blue:#a9d9f5; --orange:#f7b68f; --purple:#cbb6f4; --mint:#aee8dd; --rose:#f4c8cf;
+}
+*{box-sizing:border-box} body{margin:0;background:#f7f5f2;color:var(--ink);font-family:Montserrat,Arial,sans-serif}
+.wrapper{max-width:1500px;margin:auto;padding:22px}
+.header{text-align:center;margin:2px 0 18px}.header h1{margin:0;font-size:clamp(32px,4vw,60px);font-weight:800;letter-spacing:.02em}.header p{margin:6px 0 0;font-size:clamp(14px,1.5vw,20px)}
+.board{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:stretch}
+.card{border-radius:28px;padding:20px 22px;background:#fff;box-shadow:0 8px 22px rgba(38,50,56,.09);border:3px solid rgba(38,50,56,.08)}
+.card h2{margin:0 0 5px;font-size:clamp(20px,2vw,30px);font-weight:800;text-transform:uppercase}.question{font-weight:600;margin:0 0 14px;font-size:15px}.words{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;margin:0;padding:0;list-style:none}.words li{font-size:15px;font-weight:600}.words li:before{content:'•';font-size:20px;margin-right:8px;color:var(--dot)}
+.example{margin-top:15px;background:rgba(255,255,255,.72);border:2px dashed rgba(38,50,56,.28);padding:12px 14px;border-radius:18px;font-size:14px;line-height:1.55}.example strong{display:block;margin-bottom:2px}.tag{padding:2px 6px;border-radius:7px;font-weight:700;background:rgba(255,255,255,.65)}
+.add{grid-column:span 4;background:var(--pink);--dot:#d63f72}.order{grid-column:span 4;background:var(--yellow);--dot:#c18b00}.explain{grid-column:span 4;background:var(--green);--dot:#2d9a47}.contrast{grid-column:span 4;background:var(--blue);--dot:#2588c4}.center{grid-column:span 4;background:#e7dcfb;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:4px solid #51465f;min-height:300px}.center h2{font-size:clamp(28px,3vw,45px);line-height:1.05}.center p{font-size:17px;line-height:1.5;max-width:390px}.reason{grid-column:span 4;background:var(--orange);--dot:#df5b20}.result{grid-column:span 4;background:var(--purple);--dot:#6f45c4}.tips{grid-column:span 4;background:var(--rose)}.time{grid-column:span 4;background:var(--mint);--dot:#139c86}
+.tips ul{list-style:none;margin:12px 0 0;padding:0}.tips li{background:rgba(255,255,255,.55);border-radius:14px;padding:10px 12px;margin:8px 0;font-size:14px;font-weight:600}.tips li:before{content:'✓';display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#ee6682;color:white;margin-right:9px}
+.icon{font-size:30px;margin-right:7px}.footer{text-align:center;font-size:12px;opacity:.65;margin-top:14px}
+@media(max-width:950px){.card,.add,.order,.explain,.contrast,.center,.reason,.result,.tips,.time{grid-column:span 6}.center{order:-1}.words{grid-template-columns:1fr}}
+@media(max-width:620px){.wrapper{padding:10px}.board{gap:10px}.card,.add,.order,.explain,.contrast,.center,.reason,.result,.tips,.time{grid-column:1/-1;border-radius:22px}.center{min-height:220px}.words{grid-template-columns:1fr 1fr}}
+@media print{body{background:white}.wrapper{max-width:none;padding:8mm}.card{box-shadow:none;break-inside:avoid}.footer{display:none}}
+</style>
+</head>
+<body>
+<main class="wrapper">
+<header class="header"><h1>🔗 Verbindingswoorden</h1><p>Schrijfhulp voor de bovenbouw • Zo maak je van losse zinnen een duidelijke tekst.</p></header>
+<section class="board">
+<article class="card add"><h2><span class="icon">➕</span>Iets toevoegen</h2><p class="question">Wil ik nog iets vertellen?</p><ul class="words"><li>en</li><li>ook</li><li>bovendien</li><li>daarnaast</li><li>verder</li><li>eveneens</li><li>niet alleen … maar ook</li></ul><div class="example"><strong>Bijvoorbeeld:</strong>Ik hou van lezen <span class="tag">en</span> van sporten.</div></article>
+<article class="card order"><h2><span class="icon">➡️</span>Volgorde</h2><p class="question">Wat gebeurt eerst en daarna?</p><ul class="words"><li>eerst</li><li>daarna</li><li>vervolgens</li><li>dan</li><li>ondertussen</li><li>intussen</li><li>ten slotte</li><li>tot slot</li></ul><div class="example"><strong>Bijvoorbeeld:</strong><span class="tag">Eerst</span> snijd je de groenten. <span class="tag">Daarna</span> doe je ze in de pan.</div></article>
+<article class="card explain"><h2><span class="icon">💡</span>Uitleg / voorbeeld</h2><p class="question">Wil ik iets duidelijker maken?</p><ul class="words"><li>bijvoorbeeld</li><li>zoals</li><li>zo</li><li>namelijk</li><li>denk aan</li><li>ter illustratie</li></ul><div class="example"><strong>Bijvoorbeeld:</strong>Veel dieren leven in groepen. <span class="tag">Bijvoorbeeld</span> wolven leven in een roedel.</div></article>
+<article class="card contrast"><h2><span class="icon">↔️</span>Tegenstelling</h2><p class="question">Is het juist anders?</p><ul class="words"><li>maar</li><li>toch</li><li>hoewel</li><li>echter</li><li>aan de andere kant</li><li>daarentegen</li><li>desondanks</li><li>in tegenstelling tot</li></ul><div class="example"><strong>Bijvoorbeeld:</strong>Het regende hard. <span class="tag">Toch</span> gingen we naar buiten.</div></article>
+<article class="card center"><div style="font-size:52px">✍️</div><h2>Verbindings-<br>woorden</h2><p>Kies een woord dat laat zien <strong>hoe jouw zinnen en ideeën bij elkaar horen.</strong></p></article>
+<article class="card reason"><h2><span class="icon">🎯</span>Reden / oorzaak</h2><p class="question">Waarom gebeurt dit?</p><ul class="words"><li>omdat</li><li>want</li><li>doordat</li><li>aangezien</li><li>vanwege</li><li>door</li><li>het komt doordat</li></ul><div class="example"><strong>Bijvoorbeeld:</strong>Ik vind schooluniformen geen goed idee, <span class="tag">omdat</span> kinderen dan minder zichzelf kunnen zijn.</div></article>
+<article class="card result"><h2><span class="icon">➡️</span>Gevolg / conclusie</h2><p class="question">Wat gebeurt hierdoor?</p><ul class="words"><li>daarom</li><li>daardoor</li><li>dus</li><li>hierdoor</li><li>zodat</li><li>waardoor</li><li>kortom</li><li>samengevat</li></ul><div class="example"><strong>Bijvoorbeeld:</strong>We hadden de bus gemist. <span class="tag">Daarom</span> kwamen we te laat.</div></article>
+<article class="card tips"><h2>⭐ Schrijftips</h2><ul><li>Gebruik niet steeds <strong>en toen … en toen …</strong></li><li>Kies het verbindingswoord dat past bij wat je wilt zeggen.</li><li>Wissel verbindingswoorden af.</li><li>Lees terug: begrijpt de lezer hoe mijn zinnen bij elkaar horen?</li></ul></article>
+<article class="card time"><h2><span class="icon">🕒</span>Tijd</h2><p class="question">Wanneer gebeurt het?</p><ul class="words"><li>voordat</li><li>nadat</li><li>terwijl</li><li>wanneer</li><li>zodra</li><li>toen</li><li>vroeger</li><li>later</li><li>in de tussentijd</li></ul><div class="example"><strong>Bijvoorbeeld:</strong><span class="tag">Nadat</span> we hadden gegeten, gingen we naar buiten.</div></article>
+</section>
+<div class="footer">Tip: gebruik F11 voor volledig scherm tijdens je online les. • Ook geschikt om af te drukken.</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het 3-woordenwiel</title>
+<style>
+:root{--ink:#17324d;--paper:#fffdf9;--coral:#ff7e79;--blue:#62c8d4;--yellow:#ffd65c;--pink:#f18bc3;--green:#8bd5a6;--violet:#a88be8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#f18bc3,#ffd65c 48%,#62c8d4);font-family:ui-rounded,"Trebuchet MS",Arial,sans-serif;color:var(--ink);padding:24px}
+main{max-width:1050px;margin:auto;background:#fffdf9ee;border:4px solid white;border-radius:30px;padding:clamp(20px,4vw,42px);box-shadow:0 18px 55px #17324d24}
+header{text-align:center;margin-bottom:26px}h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:.95;margin:0 0 14px;letter-spacing:.02em;text-transform:uppercase;color:#15365b;text-shadow:3px 3px 0 #ffd65c,-1px -1px white}header p{font-size:1.15rem;margin:0}
+.layout{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,.9fr);gap:32px;align-items:center}.wheel-wrap{position:relative;width:min(100%,480px);aspect-ratio:1;margin:auto;filter:drop-shadow(0 12px 12px #17324d30)}canvas{display:block;width:100%;height:100%}.pointer{position:absolute;z-index:2;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-top:48px solid #17324d;filter:drop-shadow(0 2px 1px white)}
+.panel{text-align:center}.instruction{font-size:.96rem;opacity:.82;margin:0 0 14px}.result{min-height:155px;background:#fff;border:3px solid #e8eef2;border-radius:24px;padding:20px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 6px 0 #dce6eb}.number{font-weight:900;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:#668099;margin-bottom:8px}.prompt{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;line-height:1.2}.sub{margin-top:10px;font-size:.94rem;color:#536b80}.spin{border:0;border-radius:999px;background:#17324d;color:white;font-size:1.25rem;font-weight:900;padding:16px 32px;margin:22px 0 10px;cursor:pointer;box-shadow:0 6px 0 #0d2032;transition:transform .15s,box-shadow .15s}.spin:hover{transform:translateY(-2px);box-shadow:0 8px 0 #0d2032}.spin:active{transform:translateY(3px);box-shadow:0 2px 0 #0d2032}.spin:disabled{opacity:.65;cursor:wait}.small{font-size:.88rem;color:#587087}.below{margin-top:28px;border-top:2px dashed #d3dfe5;padding-top:18px}.below summary{cursor:pointer;font-weight:800}.prompts{columns:2;column-gap:28px;padding-left:24px;line-height:1.55}.prompts li{break-inside:avoid;padding:2px 0}.reset{border:0;background:transparent;text-decoration:underline;color:#536b80;cursor:pointer;font:inherit;margin-top:10px}
+@media(max-width:760px){body{padding:12px}.layout{grid-template-columns:1fr;gap:22px}.wheel-wrap{width:min(88vw,410px)}.panel{max-width:520px;margin:auto}.prompts{columns:1}}
+@media print{body{background:white;padding:0}main{box-shadow:none;border:0;padding:10mm}.layout{grid-template-columns:1fr 1fr}.spin,.reset,.below summary{display:none}.below{display:block}.prompts{columns:2}}
+</style>
+</head>
+<body><main>
+<header><h1>Het 3-woordenwiel</h1><p>Draai aan het wiel en noem <strong>drie dingen</strong> die bij de opdracht passen.</p></header>
+<section class="layout" aria-label="Het spel">
+<div class="wheel-wrap"><div class="pointer" aria-hidden="true"></div><canvas id="wheel" aria-label="Wiel met achttien opdrachten"></canvas></div>
+<div class="panel"><p class="instruction">Kun je ze alle drie bedenken? Vertel ze hardop, schrijf ze op of beeld ze uit.</p><div class="result" aria-live="polite"><div id="number" class="number">Klaar om te draaien?</div><div id="prompt" class="prompt">Welke drie dingen kun jij noemen?</div><div id="sub" class="sub">Klik op de knop om een opdracht te krijgen.</div></div><button id="spin" class="spin">DRAAI HET WIEL</button><div class="small">Je krijgt niet meteen dezelfde opdracht nog een keer.</div><button id="reset" class="reset">Opnieuw beginnen</button></div>
+</section>
+<details class="below"><summary>Bekijk alle opdrachten</summary><ol id="list" class="prompts"></ol></details>
+</main>
+<script>
+const prompts=[
+"Noem drie dingen die je aan school doen denken.",
+"Noem drie dingen die je aan vakantie doen denken.",
+"Noem drie dingen die je aan werk doen denken.",
+"Noem drie dingen die je aan muziek doen denken.",
+"Noem drie dingen die je aan je ouders of verzorgers doen denken.",
+"Noem drie dingen die je aan Kerstmis doen denken.",
+"Noem drie dingen die je kunt drinken.",
+"Noem drie dingen die je kunt eten.",
+"Noem drie dingen die je aan je lijf kunt dragen.",
+"Noem drie dingen die je aan je voeten kunt dragen.",
+"Noem drie dingen die je op je hoofd kunt dragen.",
+"Noem drie dingen waarmee je kunt schrijven.",
+"Noem drie dingen die mensen én dieren hebben.",
+"Noem drie dingen die leerlingen én leerkrachten doen.",
+"Noem drie dingen die leidinggevenden én medewerkers doen.",
+"Noem drie dingen die je in Europa én Noord-Amerika vindt.",
+"Noem drie dingen die zowel een koning als een president doet.",
+"Noem drie dingen die je met vrienden kunt doen."
+];
+const colors=['#f18bc3','#8bd5a6','#ffb45e','#ff7e79','#d194ee','#a8b7f0','#ffe17a','#62c8d4','#58cbd1','#78c9e8','#ffe05e','#ff9a78','#9b80ea','#ffd17a','#a4df53','#f18bc3','#4fc5c9','#ab8be9'];
+const canvas=document.getElementById('wheel'),ctx=canvas.getContext('2d');let rotation=0,spinning=false,remaining=[...prompts.keys()];
+function draw(){const dpr=window.devicePixelRatio||1,size=canvas.clientWidth;canvas.width=size*dpr;canvas.height=size*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);const c=size/2,r=size/2-8,n=prompts.length,step=2*Math.PI/n;ctx.clearRect(0,0,size,size);
+for(let i=0;i<n;i++){const start=rotation+i*step-Math.PI/2;ctx.beginPath();ctx.moveTo(c,c);ctx.arc(c,c,r,start,start+step);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();const mid=start+step/2;ctx.save();ctx.translate(c+Math.cos(mid)*r*.76,c+Math.sin(mid)*r*.76);ctx.rotate(mid+Math.PI/2);ctx.fillStyle='#17324d';ctx.font=`900 ${Math.max(13,size*.045)}px Trebuchet MS,Arial`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(i+1),0,0);ctx.restore();}
+ctx.beginPath();ctx.arc(c,c,r*.18,0,2*Math.PI);ctx.fillStyle='#fffdf9';ctx.fill();ctx.lineWidth=5;ctx.strokeStyle='#17324d';ctx.stroke();ctx.fillStyle='#17324d';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`900 ${Math.max(10,size*.027)}px Trebuchet MS,Arial`;ctx.fillText('3 WOORDEN',c,c);
+}
+new ResizeObserver(draw).observe(canvas);
+document.getElementById('list').innerHTML=prompts.map(p=>`<li>${p}</li>`).join('');
+function spin(){if(spinning)return;if(!remaining.length)remaining=[...prompts.keys()];spinning=true;document.getElementById('spin').disabled=true;document.getElementById('sub').textContent='Het wiel draait…';const idx=remaining.splice(Math.floor(Math.random()*remaining.length),1)[0];const n=prompts.length,step=2*Math.PI/n;const targetNorm=((-(idx+.5)*step)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);const currentNorm=((rotation%(2*Math.PI))+2*Math.PI)%(2*Math.PI);const delta=(targetNorm-currentNorm+2*Math.PI)%(2*Math.PI);const start=rotation,total=delta+Math.PI*2*(5+Math.random()*2),duration=3900,begin=performance.now();function frame(now){let t=Math.min(1,(now-begin)/duration),ease=1-Math.pow(1-t,4);rotation=start+total*ease;draw();if(t<1)requestAnimationFrame(frame);else{rotation=targetNorm;draw();spinning=false;document.getElementById('spin').disabled=false;document.getElementById('number').textContent=`OPDRACHT ${idx+1}`;document.getElementById('prompt').textContent=prompts[idx];document.getElementById('sub').textContent=remaining.length?`Nog ${remaining.length} verschillende opdrachten tot het wiel opnieuw begint.`:'Je hebt alle opdrachten gehad. Draai gerust nog een keer!';}}
+requestAnimationFrame(frame)}
+document.getElementById('spin').addEventListener('click',spin);document.getElementById('reset').addEventListener('click',()=>{remaining=[...prompts.keys()];document.getElementById('number').textContent='Klaar om te draaien?';document.getElementById('prompt').textContent='Welke drie dingen kun jij noemen?';document.getElementById('sub').textContent='Klik op de knop om een opdracht te krijgen.';});
+</script></body></html>
